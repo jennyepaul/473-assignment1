@@ -39,14 +39,54 @@ namespace JennyCasey_Assign1
             //print out the menu and the options to the user
             Console.WriteLine("Welcome to the World of ConflictCraft: Testing Environment!");
             Console.WriteLine("Welcome to World of ConflictCraft: Testing Environment. Please select an option from the list below:");
-            Console.WriteLine(String.Format(formatMenuString,choiceOne,choiceTwo,choiceThree,choiceFour,choiceFive,choiceSix,choiceSeven,choiceEight,
-                                                choiceNine,quit));
+            Console.WriteLine(String.Format(formatMenuString,choiceOne,choiceTwo,choiceThree,choiceFour,
+                                                            choiceFive,choiceSix,choiceSeven,choiceEight,
+                                                            choiceNine,quit));
      
             //read the choice from the user
             choice = Console.ReadLine();
 
-            //lets print this back just to double check its working
-            Console.WriteLine("you chose: {0}", choice);
+            //switch statement to do the various tasks based on what the user enters
+            //for now it just prints back what they chose, will add functionality to this
+            //as we build the classes
+            //might have to put this within a while loop so that the user can keep entering a choice
+            switch(choice)
+            {
+                case "1":
+                    Console.WriteLine("You chose to print all the players out!");
+                    break;
+                case "2":
+                    Console.WriteLine("You chose to print all the guilds available!");
+                    break;
+                case "3":
+                    Console.WriteLine("You chose to list all the gear");
+                    break;
+                case "4":
+                    Console.WriteLine("You chose to print the gear list for the player ");
+                    break;
+                case "5":
+                    Console.WriteLine("You chose to leave the guild");
+                    break;
+                case "6":
+                    Console.WriteLine("You chose to join a guild!");
+                    break;
+                case "7":
+                    Console.WriteLine("You chose to equip some gear!");
+                    break;
+                case "8":
+                    Console.WriteLine("You chose to unequip some gear!");
+                    break;
+                case "9":
+                    Console.WriteLine("Let's award some experience now");
+                    break;
+                case "10": case "q": case "Q": case "quit": case "Quit": case "exit": case "Exit":
+                    Console.WriteLine("Exiting program...");
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice");
+                    break;
+            }
+
 
         }
     }
