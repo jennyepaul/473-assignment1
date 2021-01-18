@@ -93,6 +93,7 @@ namespace JennyCasey_Assign1
                         break;
                     case "9":
                         Console.WriteLine("Let's award some experience now");
+                        //AwardExperience();
                         break;
                     case "10": case "q": case "Q": case "quit": case "Quit": case "exit": case "Exit":
                         Console.WriteLine("Exiting program...");

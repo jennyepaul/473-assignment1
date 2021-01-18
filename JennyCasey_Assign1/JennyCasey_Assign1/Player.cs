@@ -201,6 +201,20 @@ namespace JennyCasey_Assign1
             //print name, race, level, guild
 
         }
+        public void AwardExperience()
+        {
+            string experience;
+            string playerName;
+            //get the player's name from user
+            Console.WriteLine("Enter the player name: ");
+            playerName = Console.ReadLine();
+
+            //get the amount of experience to award from user
+            Console.WriteLine("Enter the amount of experience to award: ");
+            experience = Console.ReadLine();
+            int intExp = int.Parse(experience);
+            
+        }
 
     }
 }
