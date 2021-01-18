@@ -24,9 +24,11 @@ namespace JennyCasey_Assign1
         private readonly string race;
         private uint level;
         private uint exp;
-        private uint guildID;
+        private uint guildId;
+        private uint[] gear;
         private List<uint> inventory;
 
+        /*
         string[] gear =
         {
             "Newbie's Helmet", "Newbie's Cloak", "Newbie's Raiment",
@@ -36,7 +38,7 @@ namespace JennyCasey_Assign1
             "The Spire", "Nebula's Legguards", "Nebula's Stompers", "Gamora's Acceptance",
             "Gamora's Love", "Infinity Gauntlet"
         };
-
+        */
         // default constructor 
         public Player()
         {
@@ -45,22 +47,22 @@ namespace JennyCasey_Assign1
             race = "";
             level = 0;
             exp = 0;
-            guildID = 0;
-            gear = 0;
-            inventory = 0;
+            guildId = 0;
+            //gear = new uint[];
+            //inventory = 0;
         }
 
 
         //alternate constructor
-        public Player(uint id, string name, string race, uint level, uint exp, uint guildID, uint gear, List<uint> inventory)
+        public Player(uint id, string name, string race, uint level, uint exp, uint guildId, uint[] gear, List<uint> inventory)
         {
             this.id = id;
             this.name = name;
             this.race = race;
             this.level = level;
             this.exp = exp;
-            this.guildID = guildID;
-            this.gear = gear[];
+            this.guildId = guildId;
+            this.gear = gear;
             this.inventory = inventory;
         }
 
@@ -126,11 +128,11 @@ namespace JennyCasey_Assign1
             //free read/write acess so getter and setters
             get
             {
-                return guildID;
+                return guildId;
             }
             set
             {
-                guildID = value;
+                guildId = value;
             }
         }
 
@@ -186,6 +188,12 @@ namespace JennyCasey_Assign1
         {
             //prints players name, level, followed by list of equipped gear (or an empty message if that index value 
             //is equal to 0 or null
+        }
+
+        public void PrintPlayerList()
+        {
+            //print name, race, level, guild
+
         }
 
     }

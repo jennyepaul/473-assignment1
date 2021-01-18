@@ -54,7 +54,7 @@ namespace JennyCasey_Assign1
             
             //while loop checks for flag if we should continue, this will be set to false (do not continue, exit out of program) when
             //the user enters any of the 'quit' options
-            while(isContinuing == true)
+            while(isContinuing)
             {
                 //beginning message and menu options
                 Console.WriteLine("Welcome to World of ConflictCraft: Testing Environment. Please select an option from the list below:");
