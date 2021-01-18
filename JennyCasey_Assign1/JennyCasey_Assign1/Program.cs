@@ -29,9 +29,10 @@ namespace JennyCasey_Assign1
         private static uint MAX_PRIMARY = 200;
         private static uint MAX_STAMINA = 275;
         private static uint MAX_LEVEL = 60;
-        */
         private static uint GEAR_SLOTS = 14;
         private static uint MAX_INVENTORY_SIZE = 20;
+        */
+
         private const string formatMenuString = "\t{0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}";
         static void Main(string[] args)
         {

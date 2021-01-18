@@ -14,11 +14,16 @@ namespace JennyCasey_Assign1
 {
     public class Player
     {
+        //constants for program
+        private static uint MAX_LEVEL = 60;
+        private static uint GEAR_SLOTS = 14;
+        private static uint MAX_INVENTORY_SIZE = 20;
+
         private readonly uint id;
         private readonly string name;
         private readonly string race;
         private uint level;
-        private uint exp; 
+        private uint exp;
         private uint guildID;
         private List<uint> inventory;
 
@@ -36,7 +41,7 @@ namespace JennyCasey_Assign1
         public Player()
         {
             id = 0;
-            name = " ";
+            name = "";
             race = "";
             level = 0;
             exp = 0;
@@ -55,7 +60,7 @@ namespace JennyCasey_Assign1
             this.level = level;
             this.exp = exp;
             this.guildID = guildID;
-            this.gear = gear;
+            this.gear = gear[];
             this.inventory = inventory;
         }
 
@@ -69,7 +74,7 @@ namespace JennyCasey_Assign1
         }
 
         //only a getter, since only readonly
-        public string name
+        public string Name
         {
             get
             {
@@ -78,7 +83,7 @@ namespace JennyCasey_Assign1
         }
 
         //only a getter, since only readonly
-        public string race
+        public string Race
         {
             get
             {
@@ -86,7 +91,7 @@ namespace JennyCasey_Assign1
             }
         }
 
-        public uint level
+        public uint Level
         {
             //free read/write acess so getter and setters
             get
@@ -99,7 +104,7 @@ namespace JennyCasey_Assign1
             }
         }
 
-        public uint exp
+        public uint Exp
         {
             //free read/write acess so getter and setters
             get
@@ -108,12 +113,15 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                //only incremnt exp if it does not exceed MAX_LEVEL
-                exp = exp + value;
+                if (exp < MAX_LEVEL)
+                {
+                    //only incremnt exp if it does not exceed MAX_LEVEL
+                    exp += value;
+                }
             }
         }
 
-        public uint guildID
+        public uint GuildID
         {
             //free read/write acess so getter and setters
             get
@@ -136,7 +144,7 @@ namespace JennyCasey_Assign1
             set => gear[index] = value;
         }
 
-        public List<uint> inventory
+        public List<uint> Inventory
         {
             //free read/write acess so getter and setters
             get
@@ -160,3 +168,4 @@ namespace JennyCasey_Assign1
         }
 
     }
+}
