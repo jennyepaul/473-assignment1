@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace JennyCasey_Assign1
 {
@@ -27,18 +28,6 @@ namespace JennyCasey_Assign1
         private uint guildId;
         private uint[] gear;
         private List<uint> inventory;
-
-        /*
-        string[] gear =
-        {
-            "Newbie's Helmet", "Newbie's Cloak", "Newbie's Raiment",
-            "Newbie's Gloves", "Newbie's Trousers", "Newbie's Sandals",
-            "Slacker", "Nebula's Pauldrons", "Dread Pirate Nebula's Cloak",
-            "Nebula's Resentment", "Nebula's Wristgaurds", "Nebula's Fury",
-            "The Spire", "Nebula's Legguards", "Nebula's Stompers", "Gamora's Acceptance",
-            "Gamora's Love", "Infinity Gauntlet"
-        };
-        */
         // default constructor 
         public Player()
         {
@@ -48,7 +37,7 @@ namespace JennyCasey_Assign1
             level = 0;
             exp = 0;
             guildId = 0;
-            //gear = new uint[];
+            gear = new uint[0];
             //inventory = 0;
         }
 
@@ -120,6 +109,11 @@ namespace JennyCasey_Assign1
                     //only incremnt exp if it does not exceed MAX_LEVEL
                     exp += value;
                 }
+                else
+                {
+                    //if its >= MAX_LEVEL then we just return
+                    return;
+                }
             }
         }
 
@@ -140,7 +134,7 @@ namespace JennyCasey_Assign1
 
         //declaring the indexer
         //gear array with throw exception if out of range
-        public string this[int index]
+        public uint this[int index]
         {
             get => gear[index];
             set => gear[index] = value;
@@ -159,6 +153,18 @@ namespace JennyCasey_Assign1
             }
         }
 
+        public void PopulateGear()
+        {
+            //just testing to see if we can read in from the .txt file, need to populate the gear into the gear[] array eventually
+            //and format the output to look like example online
+            string[] readEquipment;
+            string path = "../../../equipment.txt";
+            readEquipment = File.ReadAllLines(path);
+            foreach(string indexer in readEquipment)
+            {
+                Console.WriteLine(indexer);
+            }
+        }
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
