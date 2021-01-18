@@ -167,5 +167,26 @@ namespace JennyCasey_Assign1
             //if the tests above are passed, place that ID value into the correct element of your gear array
         }
 
+        public void UnequipGear(int gearSlot)
+        {
+            //need to evaluate if the indicated index of the gearSlot (int gearSlot) in the gear array is already occupied
+            //if it is occupied, place the item there (At that index) into the player's inventory (use a method ot do this)
+            //throw an exception if the number of elements in the inventory is the same or greater than the constant that represents
+            //the max size of inventory
+
+        }
+        public int LevelUp()
+        {
+            //just putting this here so we don't get error, but this method should handle the leveling up and return the current level of the player
+            int level = 0; //??
+            return level;
+        }
+
+        public void PrintGearList()
+        {
+            //prints players name, level, followed by list of equipped gear (or an empty message if that index value 
+            //is equal to 0 or null
+        }
+
     }
 }
