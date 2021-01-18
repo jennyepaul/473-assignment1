@@ -14,13 +14,13 @@ namespace JennyCasey_Assign1
 {
     public class Player
     {
-        public readonly uint id;
-        public readonly string name;
-        public readonly string race;
-        public uint level;
-        public uint exp; 
-        public uint guildID;
-        public List<uint> inventory;
+        private readonly uint id;
+        private readonly string name;
+        private readonly string race;
+        private uint level;
+        private uint exp; 
+        private uint guildID;
+        private List<uint> inventory;
 
         string[] gear =
         {
