@@ -10,7 +10,7 @@ using System.Text;
 namespace JennyCasey_Assign1
 {
     
-    class Item
+    class Item : IComparable
     {
         //constant to be used
         private static uint MAX_ILVL = 360;
@@ -23,7 +23,7 @@ namespace JennyCasey_Assign1
         private string name;
         private ItemType type;
         private uint ilvl;
-        private uint primary;
+        private uint primary;           //stat on item, benefit it gives
         private uint stamina;
         private uint requirement;
         private string flavor;
@@ -60,6 +60,7 @@ namespace JennyCasey_Assign1
             {
                 return _id;
             }
+            set {   }
         }
 
         public string Name
@@ -161,5 +162,28 @@ namespace JennyCasey_Assign1
                 flavor = value;
             }
         }
+
+        //sort by name for items; need to fix this but for now this should work
+        public int CompareTo(Object alpha)
+        {
+            Item slacker = alpha as Item;
+
+            //if null, we can't compare so throw an exception
+            if (alpha == null)
+            {
+                throw new ArgumentNullException();
+            }
+            //else it isn't null so let's compare
+            else
+                // if (this.Name == alpha.Name)
+                return this.Name.CompareTo(slacker.Name);
+        }
+
+        //overridden ToString() method
+        public override string ToString()
+        {
+            return this.ID.ToString() + "," + this.Name;
+        }
+
     }
 }
