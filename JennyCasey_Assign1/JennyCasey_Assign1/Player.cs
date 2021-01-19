@@ -168,11 +168,18 @@ namespace JennyCasey_Assign1
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
+            /* if (!gear.Contains(newGearID))
+            {
+                Console.Write("your gear id does match any in the system");
+            }*/
 
             //if the players level matches or exceeds the level requirement
             //throw a new exception with an appropriate error message as the arguement 
 
             //if the tests above are passed, place that ID value into the correct element of your gear array
+            /*int pos = (gear.Length - 1);
+            gear[pos] = newGearID;*/
+                       
         }
 
         public void UnequipGear(int gearSlot)
