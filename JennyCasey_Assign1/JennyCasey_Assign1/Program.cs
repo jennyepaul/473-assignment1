@@ -6,6 +6,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.IO;
 
 namespace JennyCasey_Assign1
 {
@@ -20,14 +21,6 @@ namespace JennyCasey_Assign1
 
     class Program
     {
-        public enum ItemType
-        {
-            Helmet, Neck, Shoulders, Back, Chest,
-            Wrist, Gloves, Belt, Pants, Boots,
-            Ring, Trinket
-        };
-        public enum Race { Orc, Troll, Tauren, Forsaken };
-
         private const string formatMenuString = "\t{0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}";
         static void Main(string[] args)
         {
@@ -43,6 +36,63 @@ namespace JennyCasey_Assign1
             string quit = "10.) Quit";
             string choice;
             bool isContinuing = true;
+
+            //new dictionary to hold item types
+            var items = new Dictionary<uint, Item>();
+
+            //create a new Item/Player object for each record
+            //store it into separate dictionary collections
+            string itemRecord;
+            string playerRecord;
+            using (StreamReader inFile = new StreamReader("../../../equipment.txt"))
+            {
+                while ((itemRecord = inFile.ReadLine()) != null)
+                {
+                    //the following are variables to hold the parsed values of the various object attributes
+                    uint parsedID;
+                    uint parsedILVL;
+                    uint parsedPRIM;
+                    uint parsedSTAMINA;
+                    uint parsedREQUIREMENT;
+                    ItemType parsedType;
+
+                    string[] parameter = itemRecord.Split('\t');
+                    
+                    string id = parameter[0];
+                    string name = parameter[1];
+                    string type = parameter[2];
+                    string itemLvl = parameter[3];
+                    string primary = parameter[4];
+                    string stamina = parameter[5];
+                    string req = parameter[6];
+                    string flavor = parameter[7];
+                    
+                    //TryParse-ing each string to the proper data type to catch any possible exceptions
+                    uint.TryParse(parameter[0], out parsedID);
+                    Enum.TryParse(type, out parsedType);
+                    uint.TryParse(parameter[3], out parsedILVL);
+                    uint.TryParse(parameter[4], out parsedPRIM);
+                    uint.TryParse(parameter[5], out parsedSTAMINA);
+                    uint.TryParse(parameter[6], out parsedREQUIREMENT);
+             
+                    //constructing new object of the class
+                    Item newItem = new Item(parsedID, name, parsedType, parsedILVL, parsedPRIM, parsedSTAMINA, parsedREQUIREMENT, flavor);
+                   
+                    //add the new item to the dictionary
+                    items.Add(parsedID, newItem);
+                }
+            }
+
+            //read through the player file and create a new object for each record
+            //and store that into a dictionary
+            using (StreamReader inFile = new StreamReader("../../../players.txt"))
+            {
+                while ((playerRecord = inFile.ReadLine()) != null)
+                {
+                    Console.WriteLine(playerRecord);
+                    //CODE YOUR PLAYER OBJECT STUFF HERE!
+                }
+            }
 
             //print out the menu and the options to the user
             Console.WriteLine("Welcome to the World of ConflictCraft: Testing Environment!");
@@ -66,10 +116,12 @@ namespace JennyCasey_Assign1
                         Console.WriteLine("You chose to print all the players out!");
                         break;
                     case "2":
-                        Console.WriteLine("You chose to print all the guilds available!");
+                        printGuilds();
                         break;
                     case "3":
-                        Console.WriteLine("You chose to list all the gear");
+                        //iterate through dictionary and print the key (ID of item) and the value (attributes of item object)
+                        foreach(var kvp in items)
+                            Console.WriteLine("{0}" ,kvp.Value);
                         break;
                     case "4":
                         Console.WriteLine("You chose to print the gear list for the player ");
@@ -94,12 +146,28 @@ namespace JennyCasey_Assign1
                         isContinuing = false;
                         break;
                     case "11": case "T":
+                        //will make use of IComparable
                         Console.WriteLine("You chose secret option 11");
-                        //IComparable method
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
                         break;
+                }
+            }
+        }
+
+        //just putting a method here to print the guilds, may need to adjust or move this somewhere else
+        static void printGuilds()
+        {
+            string guildRecord;
+            using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
+            {
+                while ((guildRecord = inFile.ReadLine()) != null)
+                {
+                    string[] guildInfo = guildRecord.Split('\t');
+                    string guildId = guildInfo[0];
+                    string guildName = guildInfo[1];
+                    Console.WriteLine("{0}", guildName);
                 }
             }
         }

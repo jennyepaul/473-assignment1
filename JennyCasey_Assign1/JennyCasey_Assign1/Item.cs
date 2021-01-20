@@ -19,14 +19,14 @@ namespace JennyCasey_Assign1
         //private static uint MAX_LEVEL = 60;
 
         //private attributes of Item class
-        private readonly uint _id;
-        private string name;
-        private ItemType type;
-        private uint ilvl;
+        private readonly uint _id;   
+        private string name;         
+        private ItemType type;       
+        private uint ilvl;           
         private uint primary;           //stat on item, benefit it gives
-        private uint stamina;
-        private uint requirement;
-        private string flavor;
+        private uint stamina;        
+        private uint requirement;    
+        private string flavor;       
 
         //default constructor
         public Item()
@@ -186,7 +186,7 @@ namespace JennyCasey_Assign1
         //overridden ToString() method
         public override string ToString()
         {
-            return this.Name + "|" + this.Ilvl + "|" + this.Primary + ", " + this.Flavor;
+            return "(" + this.Type + ") " + this.Name + " |" + this.Ilvl + "| --" + this.Primary + "--" + "\n\t" + this.Flavor;
         }
 
     }
