@@ -170,7 +170,7 @@ namespace JennyCasey_Assign1
             }
         }
 
-        //sort by name for items; need to fix this/double check this is right but for now this should work
+        //sort by name for items
         public int CompareTo(Item alpha)
         {
             //if null, we can't compare so throw an exception
