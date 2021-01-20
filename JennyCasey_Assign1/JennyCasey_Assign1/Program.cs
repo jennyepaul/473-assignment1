@@ -95,12 +95,12 @@ namespace JennyCasey_Assign1
 
                     uint parsed_id;
                     //string parsed_name;
-                    //Race parsed_race;
+                    Race parsed_race;
                     uint parsed_level;
                     uint parsed_exp;
                     uint parsed_guildID;
-                    //uint[] parsed_gear;
-                    //List<uint> parsed_inventory;
+                    uint[] parsed_gear;
+                    List<uint> parsed_inventory;
 
                     string[] parameter = playerRecord.Split('\t');
 
@@ -114,12 +114,14 @@ namespace JennyCasey_Assign1
                     string inventory = parameter[7];
 
                     uint.TryParse(parameter[0], out parsed_id);
+                    Race.TryParse(parameter[2], out parsed_race);
                     uint.TryParse(parameter[3], out parsed_level);
                     uint.TryParse(parameter[4], out parsed_exp);
                     uint.TryParse(parameter[5], out parsed_guildID);
-                    //Do I need this one??? uint.TryParse(parameter[6], out parsed_gear);
+                    uint[].TryParse(parameter[6], out parsed_gear);
+                    List<uint>.Tryparse(parameter[7], out parsed_inventory);
 
-                    Player newPlayer = new Player(parsed_id, name, race, parsed_level, parsed_exp, parsed_guildID, gear, inventory);
+                    Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, parsed_gear, parsed_inventory);
 
                     players.Add(parsed_id, newPlayer);
                 }
