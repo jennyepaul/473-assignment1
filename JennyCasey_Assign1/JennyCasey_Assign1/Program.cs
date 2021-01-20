@@ -85,12 +85,43 @@ namespace JennyCasey_Assign1
 
             //read through the player file and create a new object for each record
             //and store that into a dictionary
+            var players = new Dictionary<uint, string>();
+
             using (StreamReader inFile = new StreamReader("../../../players.txt"))
             {
                 while ((playerRecord = inFile.ReadLine()) != null)
                 {
-                    Console.WriteLine(playerRecord);
-                    //CODE YOUR PLAYER OBJECT STUFF HERE!
+                    //Console.WriteLine(playerRecord);
+
+                    uint parsed_id;
+                    //string parsed_name;
+                    //Race parsed_race;
+                    uint parsed_level;
+                    uint parsed_exp;
+                    uint parsed_guildID;
+                    //uint[] parsed_gear;
+                    //List<uint> parsed_inventory;
+
+                    string[] parameter = playerRecord.Split('\t');
+
+                    string id = parameter[0];
+                    string name = parameter[1];
+                    string race = parameter[2];
+                    string level = parameter[3];
+                    string exp = parameter[4];
+                    string guildId = parameter[5];
+                    string gear = parameter[6];
+                    string inventory = parameter[7];
+
+                    uint.TryParse(parameter[0], out parsed_id);
+                    uint.TryParse(parameter[3], out parsed_level);
+                    uint.TryParse(parameter[4], out parsed_exp);
+                    uint.TryParse(parameter[5], out parsed_guildID);
+                    //Do I need this one??? uint.TryParse(parameter[6], out parsed_gear);
+
+                    Player newPlayer = new Player(parsed_id, name, race, parsed_level, parsed_exp, parsed_guildID, gear, inventory);
+
+                    players.Add(parsed_id, newPlayer);
                 }
             }
 
