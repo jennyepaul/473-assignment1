@@ -99,8 +99,8 @@ namespace JennyCasey_Assign1
                     uint parsed_level;
                     uint parsed_exp;
                     uint parsed_guildID;
-                    uint[] parsed_gear;
-                    List<uint> parsed_inventory;
+                    //uint[] parsed_gear;
+                    //List<uint> parsed_inventory;
 
                     string[] parameter = playerRecord.Split('\t');
 
@@ -112,16 +112,18 @@ namespace JennyCasey_Assign1
                     string guildId = parameter[5];
                     string gear = parameter[6];
                     string inventory = parameter[7];
+                    
+
 
                     uint.TryParse(parameter[0], out parsed_id);
                     Enum.TryParse(parameter[2], out parsed_race);
                     uint.TryParse(parameter[3], out parsed_level);
                     uint.TryParse(parameter[4], out parsed_exp);
                     uint.TryParse(parameter[5], out parsed_guildID);
-                    uint[].TryParse(parameter[6], out parsed_gear);
-                    List<uint>.Tryparse(parameter[7], out parsed_inventory);
+                    //uint[].TryParse(parameter[6], out parsed_gear);
+                    //List<uint>.Tryparse(parameter[7], out parsed_inventory);
 
-                    Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, parsed_gear, parsed_inventory);
+                    Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, gear, inventory);
 
                     players.Add(parsed_id, newPlayer);
                 }
@@ -146,7 +148,7 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        printPlayers();
+                        Console.WriteLine("Name: {0}", Players.name); //??? review later
                         break;
                     case "2":
                         printGuilds();
