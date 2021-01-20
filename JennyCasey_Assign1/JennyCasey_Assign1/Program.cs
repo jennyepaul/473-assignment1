@@ -114,7 +114,7 @@ namespace JennyCasey_Assign1
                     string inventory = parameter[7];
 
                     uint.TryParse(parameter[0], out parsed_id);
-                    Race.TryParse(parameter[2], out parsed_race);
+                    Enum.TryParse(parameter[2], out parsed_race);
                     uint.TryParse(parameter[3], out parsed_level);
                     uint.TryParse(parameter[4], out parsed_exp);
                     uint.TryParse(parameter[5], out parsed_guildID);
@@ -146,7 +146,7 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("You chose to print all the players out!");
+                        printPlayers();
                         break;
                     case "2":
                         printGuilds();
@@ -204,5 +204,18 @@ namespace JennyCasey_Assign1
                 }
             }
         }
+
+        /*static void printPlayers()
+        {
+            string PlayersRecord;
+            using (StreamReader inFile = new StreamReader("../../../player.txt"))
+            {
+                while ((PlayersRecord = inFile.ReadLine()) != null)
+                {
+                    string players = PlayersRecord.Split('\t');
+
+                }
+            }
+        }*/
     }
 }
