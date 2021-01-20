@@ -10,13 +10,13 @@ using System.Text;
 namespace JennyCasey_Assign1
 {
     
-    class Item : IComparable
+    class Item : IComparable<Item>
     {
         //constant to be used
         private static uint MAX_ILVL = 360;
         private static uint MAX_PRIMARY = 200;
         private static uint MAX_STAMINA = 275;
-        private static uint MAX_LEVEL = 60;
+        //private static uint MAX_LEVEL = 60;
 
         //private attributes of Item class
         private readonly uint _id;
@@ -86,14 +86,13 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                /*
-                if(value < 0 || value > 12)
-                {
-                    throw new Exception("Valid range is [0,12]");
-                }
-                */
-               
-                type = value;
+                
+                //if(value > 0 && value < 12)
+                //{
+                    type = value;
+
+               // }
+
             }
         }
 
@@ -106,8 +105,10 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                //put a check in here for valid range
-                ilvl = value;
+                if(value > 0 && value < MAX_ILVL)
+                {
+                    ilvl = value;
+                }
             }
         }
 
@@ -120,7 +121,10 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                primary = value;
+                if(value > 0 && value < MAX_PRIMARY)
+                {
+                    primary = value;
+                }
             }
         }
 
@@ -133,7 +137,10 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                stamina = value;
+                if(value > 0 && value < MAX_STAMINA)
+                {
+                    stamina = value;
+                }
             }
         }
 
@@ -163,26 +170,23 @@ namespace JennyCasey_Assign1
             }
         }
 
-        //sort by name for items; need to fix this but for now this should work
-        public int CompareTo(Object alpha)
+        //sort by name for items; need to fix this/double check this is right but for now this should work
+        public int CompareTo(Item alpha)
         {
-            Item slacker = alpha as Item;
-
             //if null, we can't compare so throw an exception
             if (alpha == null)
             {
                 throw new ArgumentNullException();
             }
-            //else it isn't null so let's compare
+            //else it isn't null so let's compare and sort by name
             else
-                // if (this.Name == alpha.Name)
-                return this.Name.CompareTo(slacker.Name);
+                return this.Name.CompareTo(alpha.Name);
         }
 
         //overridden ToString() method
         public override string ToString()
         {
-            return this.ID.ToString() + "," + this.Name;
+            return this.Name + "|" + this.Ilvl + "|" + this.Primary + ", " + this.Flavor;
         }
 
     }

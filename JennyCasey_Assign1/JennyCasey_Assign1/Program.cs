@@ -5,6 +5,7 @@
  */
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace JennyCasey_Assign1
 {
@@ -14,6 +15,9 @@ namespace JennyCasey_Assign1
         Wrist, Gloves, Belt, Pants, Boots,
         Ring, Trinket
     };
+
+    public enum Race { Orc, Troll, Tauren, Forsaken };
+
     class Program
     {
         public enum ItemType
@@ -23,15 +27,6 @@ namespace JennyCasey_Assign1
             Ring, Trinket
         };
         public enum Race { Orc, Troll, Tauren, Forsaken };
-
-        /*
-        private static uint MAX_ILVL = 360;
-        private static uint MAX_PRIMARY = 200;
-        private static uint MAX_STAMINA = 275;
-        private static uint MAX_LEVEL = 60;
-        private static uint GEAR_SLOTS = 14;
-        private static uint MAX_INVENTORY_SIZE = 20;
-        */
 
         private const string formatMenuString = "\t{0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}";
         static void Main(string[] args)
@@ -93,11 +88,14 @@ namespace JennyCasey_Assign1
                         break;
                     case "9":
                         Console.WriteLine("Let's award some experience now");
-                        //AwardExperience();
                         break;
                     case "10": case "q": case "Q": case "quit": case "Quit": case "exit": case "Exit":
                         Console.WriteLine("Exiting program...");
                         isContinuing = false;
+                        break;
+                    case "11": case "T":
+                        Console.WriteLine("You chose secret option 11");
+                        //IComparable method
                         break;
                     default:
                         Console.WriteLine("Invalid choice");

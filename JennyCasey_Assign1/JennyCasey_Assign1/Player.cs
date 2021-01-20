@@ -22,7 +22,7 @@ namespace JennyCasey_Assign1
 
         private readonly uint id;
         private readonly string name;
-        private readonly string race;
+        private readonly Race race;
         private uint level;
         private uint exp;
         private uint guildId;
@@ -33,7 +33,7 @@ namespace JennyCasey_Assign1
         {
             id = 0;
             name = "";
-            race = "";
+            race = 0;
             level = 0;
             exp = 0;
             guildId = 0;
@@ -43,7 +43,7 @@ namespace JennyCasey_Assign1
 
 
         //alternate constructor
-        public Player(uint id, string name, string race, uint level, uint exp, uint guildId, uint[] gear, List<uint> inventory)
+        public Player(uint id, string name, Race race, uint level, uint exp, uint guildId, uint[] gear, List<uint> inventory)
         {
             this.id = id;
             this.name = name;
@@ -74,7 +74,7 @@ namespace JennyCasey_Assign1
         }
 
         //only a getter, since only readonly
-        public string Race
+        public Race Race
         {
             get
             {
@@ -153,18 +153,6 @@ namespace JennyCasey_Assign1
             }
         }
 
-        public void PopulateGear()
-        {
-            //just testing to see if we can read in from the .txt file, need to populate the gear into the gear[] array eventually
-            //and format the output to look like example online
-            string[] readEquipment;
-            string path = "../../../equipment.txt";
-            readEquipment = File.ReadAllLines(path);
-            foreach(string indexer in readEquipment)
-            {
-                Console.WriteLine(indexer);
-            }
-        }
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
