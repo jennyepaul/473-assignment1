@@ -104,16 +104,33 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                //if (exp < MAX_LEVEL)
-                //{
+                //nextLevel would be the current Level * 100
+                //set newLevel to Level since we don't want to alter the Level variable
+                uint nextLevel = (Level * 1000);
+                uint newLevel = Level;
+
+                //if the experience is greater than the value of current level * 1000, we would level up
+                //so calculate what the ~possible~ level of the player would be
+                if (exp >= nextLevel)
+                {
+                    exp /= nextLevel;
+                    newLevel += exp;
+
+                }
+
+                //if the current level OR the new level after experience is less than MAX_LEVEL
+                //we can add the experience
+                if ((Level < MAX_LEVEL) || (newLevel < MAX_LEVEL))
+                {
                     //only incremnt exp if it does not exceed MAX_LEVEL
                     exp += value;
-                //}
-                //else
-                //{
+                }
+                else
+                {
                     //if its >= MAX_LEVEL then we just return
-                  //  return;
-                //}
+                    exp += 0;
+                    return;
+                }
             }
         }
 
@@ -167,7 +184,7 @@ namespace JennyCasey_Assign1
             //if the tests above are passed, place that ID value into the correct element of your gear array
             /*int pos = (gear.Length - 1);
             gear[pos] = newGearID;*/
-                       
+
         }
 
         public void UnequipGear(int gearSlot)
@@ -178,42 +195,109 @@ namespace JennyCasey_Assign1
             //the max size of inventory
 
         }
-        public int LevelUp()
+
+        public void LevelUp(uint experience)
         {
-            //just putting this here so we don't get error, but this method should handle the leveling up and return the current level of the player
-            int level = 0; //??
-            return level;
+            uint nextLevel = (Level * 1000);
+            //gaining a level is when experience = (current level * 1000);
+            //so if we were at level 3 and wanted to go to level 4 we would need 3000 exp
+            if (experience >= nextLevel)
+            {
+                experience /= nextLevel;
+                Level += experience;
+            }
+            else
+            {
+                Level += 0;
+            }
         }
 
-        public void PrintGearList()
+        //goes through the guild.txt file, splits the records, stores them in variables
+        //then stores those in a dictionary so we can search the dictionary via key when we want
+        //information about the guilds
+        public string FindGuildName(uint ID)
         {
-            //prints players name, level, followed by list of equipped gear (or an empty message if that index value 
-            //is equal to 0 or null
-        }
+            string guildRecord;
+            string name;
+            uint uintGuildId;
 
-        public void PrintPlayerList()
+            var guilds = new Dictionary<uint, string>();
+
+            using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
+            {
+                while ((guildRecord = inFile.ReadLine()) != null)
+                {
+                    string[] guildInfo = guildRecord.Split('\t');
+                    string guildId = guildInfo[0];
+                    string guildName = guildInfo[1];
+
+                    //parse the guild ID to an unsigned integer
+                    uint.TryParse(guildId, out uintGuildId);
+
+                    //add the guilds to a dictionary so we can access them 
+                    guilds.Add(uintGuildId, guildName);
+                }
+            }
+
+            foreach (var keyValue in guilds)
+            {
+                if (keyValue.Key == guildId)
+                {
+                    name = keyValue.Value;
+                    return name;
+                }
+            }
+            return "Not found";
+        }
+        public uint FindGuildId(string guildNameToFind)
         {
-            //print name, race, level, guild
+            string guildRecord;
+            string name;
+            uint uintGuildId;
 
+            var guilds = new Dictionary<uint, string>();
+
+            using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
+            {
+                while ((guildRecord = inFile.ReadLine()) != null)
+                {
+                    string[] guildInfo = guildRecord.Split('\t');
+                    string guildId = guildInfo[0];
+                    string guildName = guildInfo[1];
+
+                    //parse the guild ID to an unsigned integer
+                    uint.TryParse(guildId, out uintGuildId);
+
+                    //add the guilds to a dictionary so we can access them 
+                    guilds.Add(uintGuildId, guildName);
+                }
+            }
+
+            foreach (var keyValue in guilds)
+            {
+                if (keyValue.Value == guildNameToFind)
+                {
+                    return keyValue.Key;
+                }
+            }
+            return 0;
         }
-        public void AwardExperience()
-        {
-            string experience;
-            string playerName;
-            //get the player's name from user
-            Console.WriteLine("Enter the player name: ");
-            playerName = Console.ReadLine();
-
-            //get the amount of experience to award from user
-            Console.WriteLine("Enter the amount of experience to award: ");
-            experience = Console.ReadLine();
-            int intExp = int.Parse(experience);
-            
-        }
-
         public override string ToString()
         {
-            return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + this.guildId);
+            //checking if the player is part of a guild (guildID > 0)
+            if(this.guildId > 0)
+            {
+                //find the guild name based on the ID
+                string name = FindGuildName(this.guildId);
+                //return the printed string
+                return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + name);
+            }
+            //else they are not part of a guild, so do not print the guild name
+            else
+            {
+                return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level);
+
+            }
         }
     }
 }

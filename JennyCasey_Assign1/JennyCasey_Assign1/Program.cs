@@ -22,28 +22,31 @@ namespace JennyCasey_Assign1
     class Program
     {
         private const string formatMenuString = "\t{0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}";
+        private const string choiceOne = "1.) Print All Players";
+        private const string choiceTwo = "2.) Print All Guilds";
+        private const string choiceThree = "3.) List All Gear";
+        private const string choiceFour = "4.) Print Gear List for Player";
+        private const string choiceFive = "5.) Leave Guild";
+        private const string choiceSix = "6.) Join Guild";
+        private const string choiceSeven = "7.) Equip Gear";
+        private const string choiceEight = "8.) Unequip Gear";
+        private const string choiceNine = "9.) Award Experience";
+        private const string quit = "10.) Quit";
         static void Main(string[] args)
         {
-            string choiceOne = "1.) Print All Players";
-            string choiceTwo = "2.) Print All Guilds";
-            string choiceThree = "3.) List All Gear";
-            string choiceFour = "4.) Print Gear List for Player";
-            string choiceFive = "5.) Leave Guild";
-            string choiceSix = "6.) Join Guild";
-            string choiceSeven = "7.) Equip Gear";
-            string choiceEight = "8.) Unequip Gear";
-            string choiceNine = "9.) Award Experience";
-            string quit = "10.) Quit";
             string choice;
+            string itemRecord;
+            string playerRecord;
             bool isContinuing = true;
 
             //new dictionary to hold item types
             var items = new Dictionary<uint, Item>();
 
-            //create a new Item/Player object for each record
-            //store it into separate dictionary collections
-            string itemRecord;
-            string playerRecord;
+            //trying to generalize and build only one dictionary of guilds, need to do this and clean up player.cs
+            //dictionary to hold guilds
+            //var guilds = new Dictionary<uint, string>();
+
+
             using (StreamReader inFile = new StreamReader("../../../equipment.txt"))
             {
                 while ((itemRecord = inFile.ReadLine()) != null)
@@ -56,8 +59,10 @@ namespace JennyCasey_Assign1
                     uint parsedREQUIREMENT;
                     ItemType parsedType;
 
+                    //split the record line from the text file based on tab and store into string array
                     string[] parameter = itemRecord.Split('\t');
                     
+                    //each index corresponds to an attribute, so assign value 
                     string id = parameter[0];
                     string name = parameter[1];
                     string type = parameter[2];
@@ -172,13 +177,63 @@ namespace JennyCasey_Assign1
                             Console.WriteLine("{0}" ,kvp.Value);
                         break;
                     case "4":
-                        Console.WriteLine("You chose to print the gear list for the player ");
+                        Console.Write("Enter the player name: ");
+                        string playerName1 = Console.ReadLine();
+                        
+                        //search for the player in the players dictionary
+                        //if we find it, then print out the player info
+                        //then the gear after... need to do more research on this one so gonna come back to it
+                        //want to see what values are in gear array then print out corresponding info 
+                        foreach(var item in players)
+                        {
+                            if (item.Value.Name == playerName1)
+                            {
+                                //printing out the full value/info of player
+                                Console.WriteLine("{0}", item.Value);
+                                
+
+                                //need to print out the gear[] array
+                            }
+                        }
                         break;
                     case "5":
-                        Console.WriteLine("You chose to leave the guild");
+                        Console.Write("Enter the player name: ");
+                        string playerName2 = Console.ReadLine();
+                        bool playerFound = false;
+                        
+                        foreach(var searchValue in players)
+                        {
+                            if(searchValue.Value.Name == playerName2)
+                            {
+                                playerFound = true;
+                                players[searchValue.Key].GuildID = 0;
+                            }
+                        }
+                        if(playerFound == false)
+                        {
+                            Console.WriteLine("Player not found");
+                        }
                         break;
                     case "6":
-                        Console.WriteLine("You chose to join a guild!");
+                        Console.Write("Enter the player name: ");
+                        string playerName3 = Console.ReadLine();
+                        Console.Write("Enter the guild they will join: ");
+                        string guildToJoin = Console.ReadLine();
+
+                        //search for the name that the user entered in the players dictionary
+                        foreach (var search in players)
+                        {
+                            if (search.Value.Name == playerName3)
+                            {
+                                //if we found it then call the FindGuildId method to find out the ID of
+                                //the guild name entered
+                                uint newGuildId = players[search.Key].FindGuildId(guildToJoin);
+
+                                //set the guild to the guild ID and print out that player joined
+                                players[search.Key].GuildID = newGuildId;
+                                Console.WriteLine("{0} has joined {1}!",playerName3, guildToJoin);
+                            }
+                        }
                         break;
                     case "7":
                         Console.WriteLine("You chose to equip some gear!");
@@ -187,38 +242,45 @@ namespace JennyCasey_Assign1
                         Console.WriteLine("You chose to unequip some gear!");
                         break;
                     case "9":
-                        Console.WriteLine("Let's award some experience now");
                         //get the player name then do a lookup in the dictionary for that player
-                        Console.WriteLine("Enter the player name: ");
-                        string playerName = Console.ReadLine();
+                        Console.Write("Enter the player name: ");
+                        string playerName4 = Console.ReadLine();
                         
                         //get the experience to award then add that to the exp the player already has
-                        Console.WriteLine("Enter the amount of experience to award: ");
+                        Console.Write("Enter the amount of experience to award: ");
                         string experience = Console.ReadLine();
                         uint uintExperience;
                         uint.TryParse(experience, out uintExperience);
 
+                        //goes through the players dictionart
                         foreach (var kv in players)
                         {
-                            if(kv.Value.Name == playerName)
+                            //if the name the user entered is a value in the dictionary, then we want to add experience
+                            //but only if the level is less than 60 (since that is MAX_LEVEL)
+                            //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION/ investigate why setter isn't doing this
+                            if(kv.Value.Name == playerName4)
                             {
-                                //Console.WriteLine("Key:{0}", kv.Key);
-                                Console.WriteLine("Players experience before is: {0}", kv.Value.Exp);
-                                players[kv.Key].Exp = uintExperience;
-                                Console.WriteLine("Players experience after is: {0}", kv.Value.Exp);
+                                    Console.WriteLine("Experience before adding exp: {0}", kv.Value.Exp);
+                                    players[kv.Key].Exp = uintExperience;
 
+                                    //if enough experience was entered, we may need to level up
+                                    if((uintExperience > 1000) && (players[kv.Key].Level < 60))
+                                    {
+                                        Console.WriteLine("Ding!");
+                                        Console.WriteLine("Ding!");
+                                        Console.WriteLine("Ding!");
+                                        players[kv.Key].LevelUp(uintExperience);
+                                    }
+                                Console.WriteLine("Experience after  adding exp: {0}", kv.Value.Exp);
                             }
-                            
                         }
-
-                            break;
+                        break;
                     case "10": case "q": case "Q": case "quit": case "Quit": case "exit": case "Exit":
                         Console.WriteLine("Exiting program...");
                         isContinuing = false;
                         break;
                     case "11": case "T":
-                        //will make use of IComparable
-                        Console.WriteLine("You chose secret option 11");
+                        //will make use of IComparable by creating new sortedSets for Item and Player
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
