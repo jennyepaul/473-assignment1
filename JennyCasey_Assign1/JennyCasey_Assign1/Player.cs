@@ -211,5 +211,9 @@ namespace JennyCasey_Assign1
             
         }
 
+        public override string ToString()
+        {
+            return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + this.guildId);
+        }
     }
 }

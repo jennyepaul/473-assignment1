@@ -125,17 +125,6 @@ namespace JennyCasey_Assign1
                     list.Add(parameter[19]);  //gear number 14
                     gear = list.ToArray();
 
-                    /*Console.WriteLine("ID: {0} Name: {1} Gear(3): {2} Gear(14): {3}", id, name, gear[2], gear[13]);
-                    Console.WriteLine("Gears in Order: (0) {0}, (1) {1}, (2) {2}, (3) {3}, (4) {4}, (5) {5},(6) {6}", 
-                        gear[0], gear[1], gear[2], gear[3], gear[4], gear[5], gear[6]);
-                    Console.WriteLine("Gear (7): {0}", gear[7]);
-                    Console.WriteLine("Gear (8): {0}", gear[8]);
-                    Console.WriteLine("Gear (9): {0}", gear[9]);
-                    Console.WriteLine("Gear (10): {0}", gear[10]);
-                    Console.WriteLine("Gear (11): {0}", gear[11]);
-                    Console.WriteLine("Gear (12): {0}", gear[12]);
-                    Console.WriteLine("Gear (13): {0}", gear[13]);*/
-
                     uint.TryParse(parameter[0], out parsed_id);
                     Enum.TryParse(parameter[2], out parsed_race);
                     uint.TryParse(parameter[3], out parsed_level);
@@ -169,7 +158,10 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        //Console.WriteLine("Name: {0}", Players.name); //??? review later
+                        foreach (var player in players)
+                        {
+                            Console.WriteLine("{0}", player.Value);
+                        }
                         break;
                     case "2":
                         printGuilds();
@@ -227,18 +219,5 @@ namespace JennyCasey_Assign1
                 }
             }
         }
-
-        /*static void printPlayers()
-        {
-            string PlayersRecord;
-            using (StreamReader inFile = new StreamReader("../../../player.txt"))
-            {
-                while ((PlayersRecord = inFile.ReadLine()) != null)
-                {
-                    string players = PlayersRecord.Split('\t');
-
-                }
-            }
-        }*/
     }
 }
