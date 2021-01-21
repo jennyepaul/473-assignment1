@@ -184,12 +184,12 @@ namespace JennyCasey_Assign1
        
         public void LevelUp(uint experience)
         {
-            uint levelsToAdd = (Level * 1000);
+            uint nextLevel = (Level * 1000);
             //gaining a level is when experience = (current level * 1000);
-            //so if we were at level 3 and wanted to go to level 4 we would need 4000 exp
-            if(experience >= levelsToAdd)
+            //so if we were at level 3 and wanted to go to level 4 we would need 3000 exp
+            if(experience >= nextLevel)
             {
-                experience /= levelsToAdd;
+                experience /= nextLevel;
                 Level += experience;
             }
             else 
