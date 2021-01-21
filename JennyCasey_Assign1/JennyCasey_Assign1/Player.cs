@@ -104,9 +104,23 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                //NEED TO FIX this functionality 
-                //need to ensure that whatever exp is added does not cause the user to go above the max level
-                if (( exp * 1000 < MAX_LEVEL * 1000))
+                //nextLevel would be the current Level * 100
+                //set newLevel to Level since we don't want to alter the Level variable
+                uint nextLevel = (Level * 1000);
+                uint newLevel = Level; 
+
+                //if the experience is greater than the value of current level * 1000, we would level up
+                //so calculate what the ~possible~ level of the player would be
+                if(exp >= nextLevel)
+                {
+                    exp /= nextLevel;
+                    newLevel += exp;
+
+                }
+
+                //if the current level OR the new level after experience is less than MAX_LEVEL
+                //we can add the experience
+                if ((Level < MAX_LEVEL) || (newLevel < MAX_LEVEL))
                 {
                     //only incremnt exp if it does not exceed MAX_LEVEL
                     exp += value;
@@ -235,13 +249,56 @@ namespace JennyCasey_Assign1
             }
             return "Not found"; 
         }
+        public uint FindGuildId(string guildNameToFind)
+        {
+            string guildRecord;
+            string name;
+            uint uintGuildId;
+
+            var guilds = new Dictionary<uint, string>();
+
+            using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
+            {
+                while ((guildRecord = inFile.ReadLine()) != null)
+                {
+                    string[] guildInfo = guildRecord.Split('\t');
+                    string guildId = guildInfo[0];
+                    string guildName = guildInfo[1];
+
+                    //parse the guild ID to an unsigned integer
+                    uint.TryParse(guildId, out uintGuildId);
+
+                    //add the guilds to a dictionary so we can access them 
+                    guilds.Add(uintGuildId, guildName);
+                }
+            }
+
+            foreach (var keyValue in guilds)
+            {
+                if (keyValue.Value == guildNameToFind)
+                {
+                    return keyValue.Key;
+                }
+            }
+            return 0;
+        }
+
         public override string ToString()
         {
-            //find the guild name based on the ID
-            string name = FindGuildName(this.guildId);
+            //checking if the player is part of a guild (guildID > 0)
+            if(this.guildId > 0)
+            {
+                //find the guild name based on the ID
+                string name = FindGuildName(this.guildId);
+                //return the printed string
+                return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + name);
+            }
+            //else they are not part of a guild, so do not print the guild name
+            else
+            {
+                return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level);
 
-            //return the printed string
-            return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + name);
+            }
         }
     }
 }

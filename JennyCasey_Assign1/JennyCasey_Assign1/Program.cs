@@ -172,13 +172,53 @@ namespace JennyCasey_Assign1
                             Console.WriteLine("{0}" ,kvp.Value);
                         break;
                     case "4":
-                        Console.WriteLine("You chose to print the gear list for the player ");
+                        Console.Write("Enter the player name: ");
+                        string playerName1 = Console.ReadLine();
+                        
+                        //search for the player in the players dictionary
+                        //if we find it, then print out the player info
+                        //then the gear after... need to do more research on this one so gonna come back to it
+                        foreach(var key in players)
+                        {
+                            if (key.Value.Name == playerName1)
+                            {
+                                Console.WriteLine("{0}", key.Value);
+                                Console.WriteLine("{0}",key.Value);
+                            }
+                        }
                         break;
                     case "5":
-                        Console.WriteLine("You chose to leave the guild");
+                        Console.Write("Enter the player name: ");
+                        string playerName2 = Console.ReadLine();
+                        
+                        foreach(var search in players)
+                        {
+                            if(search.Value.Name == playerName2)
+                            {
+                                players[search.Key].GuildID = 0;
+                            }
+                        }
                         break;
                     case "6":
-                        Console.WriteLine("You chose to join a guild!");
+                        Console.Write("Enter the player name: ");
+                        string playerName3 = Console.ReadLine();
+                        Console.Write("Enter the guild they will join: ");
+                        string guildToJoin = Console.ReadLine();
+
+                        //search for the name that the user entered in the players dictionary
+                        foreach (var search in players)
+                        {
+                            if (search.Value.Name == playerName3)
+                            {
+                                //if we found it then call the FindGuildId method to find out the ID of
+                                //the guild name entered
+                                uint newGuildId = players[search.Key].FindGuildId(guildToJoin);
+
+                                //set the guild to the guild ID and print out that player joined
+                                players[search.Key].GuildID = newGuildId;
+                                Console.WriteLine("{0} has joined {1}!",playerName3, guildToJoin);
+                            }
+                        }
                         break;
                     case "7":
                         Console.WriteLine("You chose to equip some gear!");
@@ -188,11 +228,11 @@ namespace JennyCasey_Assign1
                         break;
                     case "9":
                         //get the player name then do a lookup in the dictionary for that player
-                        Console.WriteLine("Enter the player name: ");
-                        string playerName = Console.ReadLine();
+                        Console.Write("Enter the player name: ");
+                        string playerName4 = Console.ReadLine();
                         
                         //get the experience to award then add that to the exp the player already has
-                        Console.WriteLine("Enter the amount of experience to award: ");
+                        Console.Write("Enter the amount of experience to award: ");
                         string experience = Console.ReadLine();
                         uint uintExperience;
                         uint.TryParse(experience, out uintExperience);
@@ -203,12 +243,12 @@ namespace JennyCasey_Assign1
                             //if the name the user entered is a value in the dictionary, then we want to add experience
                             //but only if the level is less than 60 (since that is MAX_LEVEL)
                             //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION/ investigate why setter isn't doing this
-                            if(kv.Value.Name == playerName)
+                            if(kv.Value.Name == playerName4)
                             {
                                     Console.WriteLine("Experience before adding exp: {0}", kv.Value.Exp);
-                              //  if (uintExperience < 60000)
-                              //  {
                                     players[kv.Key].Exp = uintExperience;
+
+                                    //if enough experience was entered, we may need to level up
                                     if((uintExperience > 1000) && (players[kv.Key].Level < 60))
                                     {
                                         Console.WriteLine("Ding!");
@@ -217,13 +257,6 @@ namespace JennyCasey_Assign1
                                         players[kv.Key].LevelUp(uintExperience);
                                     }
                                 Console.WriteLine("Experience after  adding exp: {0}", kv.Value.Exp);
-
-                                // }
-                                // else
-                                // {
-                                //     players[kv.Key].Exp = 0;
-
-                                // }
                             }
                         }
                         break;
