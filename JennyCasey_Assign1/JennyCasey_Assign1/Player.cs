@@ -104,16 +104,16 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                if (exp < MAX_LEVEL)
-                {
+                //if (exp < MAX_LEVEL)
+                //{
                     //only incremnt exp if it does not exceed MAX_LEVEL
                     exp += value;
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     //if its >= MAX_LEVEL then we just return
-                    return;
-                }
+                  //  return;
+                //}
             }
         }
 

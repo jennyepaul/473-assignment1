@@ -188,7 +188,30 @@ namespace JennyCasey_Assign1
                         break;
                     case "9":
                         Console.WriteLine("Let's award some experience now");
-                        break;
+                        //get the player name then do a lookup in the dictionary for that player
+                        Console.WriteLine("Enter the player name: ");
+                        string playerName = Console.ReadLine();
+                        
+                        //get the experience to award then add that to the exp the player already has
+                        Console.WriteLine("Enter the amount of experience to award: ");
+                        string experience = Console.ReadLine();
+                        uint uintExperience;
+                        uint.TryParse(experience, out uintExperience);
+
+                        foreach (var kv in players)
+                        {
+                            if(kv.Value.Name == playerName)
+                            {
+                                //Console.WriteLine("Key:{0}", kv.Key);
+                                Console.WriteLine("Players experience before is: {0}", kv.Value.Exp);
+                                players[kv.Key].Exp = uintExperience;
+                                Console.WriteLine("Players experience after is: {0}", kv.Value.Exp);
+
+                            }
+                            
+                        }
+
+                            break;
                     case "10": case "q": case "Q": case "quit": case "Quit": case "exit": case "Exit":
                         Console.WriteLine("Exiting program...");
                         isContinuing = false;
