@@ -198,27 +198,39 @@ namespace JennyCasey_Assign1
                         uint uintExperience;
                         uint.TryParse(experience, out uintExperience);
 
+                        //goes through the players dictionart
                         foreach (var kv in players)
                         {
+                            //if the name the user entered is a value in the dictionary, then we want to add experience
+                            //but only if the level is less than 60 (since that is MAX_LEVEL)
+                            //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION 
                             if(kv.Value.Name == playerName)
                             {
-                                //Console.WriteLine("Key:{0}", kv.Key);
-                                Console.WriteLine("Players experience before is: {0}", kv.Value.Exp);
-                                players[kv.Key].Exp = uintExperience;
-                                Console.WriteLine("Players experience after is: {0}", kv.Value.Exp);
+                                if (uintExperience < 60000)
+                                {
+                                    players[kv.Key].Exp = uintExperience;
+                                    if(uintExperience > 1000)
+                                    {
+                                        Console.WriteLine("Ding!");
+                                        Console.WriteLine("Ding!");
+                                        Console.WriteLine("Ding!");
+                                        players[kv.Key].LevelUp(uintExperience);
+                                    }
+                                }
+                                else
+                                {
+                                    players[kv.Key].Exp = 0;
 
+                                }
                             }
-                            
                         }
-
-                            break;
+                        break;
                     case "10": case "q": case "Q": case "quit": case "Quit": case "exit": case "Exit":
                         Console.WriteLine("Exiting program...");
                         isContinuing = false;
                         break;
                     case "11": case "T":
                         //will make use of IComparable
-                        Console.WriteLine("You chose secret option 11");
                         break;
                     default:
                         Console.WriteLine("Invalid choice");

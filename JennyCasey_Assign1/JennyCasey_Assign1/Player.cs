@@ -104,16 +104,20 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                //if (exp < MAX_LEVEL)
-                //{
+                //may need to fix this functionality but basically if the experience * 1000
+                //is less than the max_level * 1000 we can add the experience
+                //doing it this way since expereience is 1000 * current level, so max experience would be 60,000
+                if ((exp * 1000) < (MAX_LEVEL * 1000))
+                {
                     //only incremnt exp if it does not exceed MAX_LEVEL
                     exp += value;
-                //}
-                //else
-                //{
+                }
+                else
+                {
                     //if its >= MAX_LEVEL then we just return
-                  //  return;
-                //}
+                    exp += 0;
+                    return;
+                }
             }
         }
 
@@ -178,42 +182,61 @@ namespace JennyCasey_Assign1
             //the max size of inventory
 
         }
-        public int LevelUp()
+       
+        public void LevelUp(uint experience)
         {
-            //just putting this here so we don't get error, but this method should handle the leveling up and return the current level of the player
-            int level = 0; //??
-            return level;
+            //figure out how many levels to add
+            uint levelsToAdd = experience / 1000;
+
+            //add the levels to current level
+            Level += levelsToAdd;
+            Console.WriteLine("Level now is: {0}", Level);
         }
 
-        public void PrintGearList()
+        //goes through the guild.txt file, splits the records, stores them in variables
+        //then stores those in a dictionary so we can search the dictionary via key when we want
+        //information about the guilds
+        public string FindGuildName(uint ID)
         {
-            //prints players name, level, followed by list of equipped gear (or an empty message if that index value 
-            //is equal to 0 or null
+            string guildRecord;
+            string name;
+            uint uintGuildId;
+
+            var guilds = new Dictionary<uint, string>();
+
+            using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
+            {
+                while ((guildRecord = inFile.ReadLine()) != null)
+                {
+                    string[] guildInfo = guildRecord.Split('\t');
+                    string guildId = guildInfo[0];
+                    string guildName = guildInfo[1];
+
+                    //parse the guild ID to an unsigned integer
+                    uint.TryParse(guildId, out uintGuildId);
+
+                    //add the guilds to a dictionary so we can access them 
+                    guilds.Add(uintGuildId, guildName);
+                }
+            }
+
+            foreach(var keyValue in guilds)
+            {
+                if (keyValue.Key == guildId)
+                {
+                    name = keyValue.Value;
+                    return name;
+                }
+            }
+            return "Not found"; 
         }
-
-        public void PrintPlayerList()
-        {
-            //print name, race, level, guild
-
-        }
-        public void AwardExperience()
-        {
-            string experience;
-            string playerName;
-            //get the player's name from user
-            Console.WriteLine("Enter the player name: ");
-            playerName = Console.ReadLine();
-
-            //get the amount of experience to award from user
-            Console.WriteLine("Enter the amount of experience to award: ");
-            experience = Console.ReadLine();
-            int intExp = int.Parse(experience);
-            
-        }
-
         public override string ToString()
         {
-            return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + this.guildId);
+            //find the guild name based on the ID
+            string name = FindGuildName(this.guildId);
+
+            //return the printed string
+            return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + name);
         }
     }
 }
