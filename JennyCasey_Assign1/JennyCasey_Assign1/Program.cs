@@ -159,11 +159,14 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        //Players.Sort();
+                        players.Sort();
 
-                        var sortedDict = from entry in players orderby entry.Value ascending select entry;
+                        //sorts the dictonary without using the Icomparable Interface 
+                        //var sortedDict = from entry in players orderby entry.Value ascending select entry;
 
-                        foreach (var player in sortedDict)
+                        //SortedDictionary<uint, Player> sortedDict = new SortedDictionary<uint, Player>(new Player());
+
+                        foreach (var player in players)
                         {
                             Console.WriteLine("{0}", player.Value);
                         }
