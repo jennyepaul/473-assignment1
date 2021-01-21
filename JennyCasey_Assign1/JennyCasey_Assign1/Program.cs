@@ -42,6 +42,11 @@ namespace JennyCasey_Assign1
             //new dictionary to hold item types
             var items = new Dictionary<uint, Item>();
 
+            //trying to generalize and build only one dictionary of guilds, need to do this and clean up player.cs
+            //dictionary to hold guilds
+            //var guilds = new Dictionary<uint, string>();
+
+
             using (StreamReader inFile = new StreamReader("../../../equipment.txt"))
             {
                 while ((itemRecord = inFile.ReadLine()) != null)
@@ -178,25 +183,35 @@ namespace JennyCasey_Assign1
                         //search for the player in the players dictionary
                         //if we find it, then print out the player info
                         //then the gear after... need to do more research on this one so gonna come back to it
-                        foreach(var key in players)
+                        //want to see what values are in gear array then print out corresponding info 
+                        foreach(var item in players)
                         {
-                            if (key.Value.Name == playerName1)
+                            if (item.Value.Name == playerName1)
                             {
-                                Console.WriteLine("{0}", key.Value);
-                                Console.WriteLine("{0}",key.Value);
+                                //printing out the full value/info of player
+                                Console.WriteLine("{0}", item.Value);
+                                
+
+                                //need to print out the gear[] array
                             }
                         }
                         break;
                     case "5":
                         Console.Write("Enter the player name: ");
                         string playerName2 = Console.ReadLine();
+                        bool playerFound = false;
                         
-                        foreach(var search in players)
+                        foreach(var searchValue in players)
                         {
-                            if(search.Value.Name == playerName2)
+                            if(searchValue.Value.Name == playerName2)
                             {
-                                players[search.Key].GuildID = 0;
+                                playerFound = true;
+                                players[searchValue.Key].GuildID = 0;
                             }
+                        }
+                        if(playerFound == false)
+                        {
+                            Console.WriteLine("Player not found");
                         }
                         break;
                     case "6":
@@ -265,7 +280,7 @@ namespace JennyCasey_Assign1
                         isContinuing = false;
                         break;
                     case "11": case "T":
-                        //will make use of IComparable
+                        //will make use of IComparable by creating new sortedSets for Item and Player
                         break;
                     default:
                         Console.WriteLine("Invalid choice");

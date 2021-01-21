@@ -107,11 +107,11 @@ namespace JennyCasey_Assign1
                 //nextLevel would be the current Level * 100
                 //set newLevel to Level since we don't want to alter the Level variable
                 uint nextLevel = (Level * 1000);
-                uint newLevel = Level; 
+                uint newLevel = Level;
 
                 //if the experience is greater than the value of current level * 1000, we would level up
                 //so calculate what the ~possible~ level of the player would be
-                if(exp >= nextLevel)
+                if (exp >= nextLevel)
                 {
                     exp /= nextLevel;
                     newLevel += exp;
@@ -184,7 +184,7 @@ namespace JennyCasey_Assign1
             //if the tests above are passed, place that ID value into the correct element of your gear array
             /*int pos = (gear.Length - 1);
             gear[pos] = newGearID;*/
-                       
+
         }
 
         public void UnequipGear(int gearSlot)
@@ -195,18 +195,18 @@ namespace JennyCasey_Assign1
             //the max size of inventory
 
         }
-       
+
         public void LevelUp(uint experience)
         {
             uint nextLevel = (Level * 1000);
             //gaining a level is when experience = (current level * 1000);
             //so if we were at level 3 and wanted to go to level 4 we would need 3000 exp
-            if(experience >= nextLevel)
+            if (experience >= nextLevel)
             {
                 experience /= nextLevel;
                 Level += experience;
             }
-            else 
+            else
             {
                 Level += 0;
             }
@@ -239,7 +239,7 @@ namespace JennyCasey_Assign1
                 }
             }
 
-            foreach(var keyValue in guilds)
+            foreach (var keyValue in guilds)
             {
                 if (keyValue.Key == guildId)
                 {
@@ -247,7 +247,7 @@ namespace JennyCasey_Assign1
                     return name;
                 }
             }
-            return "Not found"; 
+            return "Not found";
         }
         public uint FindGuildId(string guildNameToFind)
         {
@@ -282,7 +282,6 @@ namespace JennyCasey_Assign1
             }
             return 0;
         }
-
         public override string ToString()
         {
             //checking if the player is part of a guild (guildID > 0)
