@@ -22,28 +22,26 @@ namespace JennyCasey_Assign1
     class Program
     {
         private const string formatMenuString = "\t{0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}";
+        private const string choiceOne = "1.) Print All Players";
+        private const string choiceTwo = "2.) Print All Guilds";
+        private const string choiceThree = "3.) List All Gear";
+        private const string choiceFour = "4.) Print Gear List for Player";
+        private const string choiceFive = "5.) Leave Guild";
+        private const string choiceSix = "6.) Join Guild";
+        private const string choiceSeven = "7.) Equip Gear";
+        private const string choiceEight = "8.) Unequip Gear";
+        private const string choiceNine = "9.) Award Experience";
+        private const string quit = "10.) Quit";
         static void Main(string[] args)
         {
-            string choiceOne = "1.) Print All Players";
-            string choiceTwo = "2.) Print All Guilds";
-            string choiceThree = "3.) List All Gear";
-            string choiceFour = "4.) Print Gear List for Player";
-            string choiceFive = "5.) Leave Guild";
-            string choiceSix = "6.) Join Guild";
-            string choiceSeven = "7.) Equip Gear";
-            string choiceEight = "8.) Unequip Gear";
-            string choiceNine = "9.) Award Experience";
-            string quit = "10.) Quit";
             string choice;
+            string itemRecord;
+            string playerRecord;
             bool isContinuing = true;
 
             //new dictionary to hold item types
             var items = new Dictionary<uint, Item>();
 
-            //create a new Item/Player object for each record
-            //store it into separate dictionary collections
-            string itemRecord;
-            string playerRecord;
             using (StreamReader inFile = new StreamReader("../../../equipment.txt"))
             {
                 while ((itemRecord = inFile.ReadLine()) != null)
@@ -56,8 +54,10 @@ namespace JennyCasey_Assign1
                     uint parsedREQUIREMENT;
                     ItemType parsedType;
 
+                    //split the record line from the text file based on tab and store into string array
                     string[] parameter = itemRecord.Split('\t');
                     
+                    //each index corresponds to an attribute, so assign value 
                     string id = parameter[0];
                     string name = parameter[1];
                     string type = parameter[2];
@@ -187,7 +187,6 @@ namespace JennyCasey_Assign1
                         Console.WriteLine("You chose to unequip some gear!");
                         break;
                     case "9":
-                        Console.WriteLine("Let's award some experience now");
                         //get the player name then do a lookup in the dictionary for that player
                         Console.WriteLine("Enter the player name: ");
                         string playerName = Console.ReadLine();
@@ -203,25 +202,28 @@ namespace JennyCasey_Assign1
                         {
                             //if the name the user entered is a value in the dictionary, then we want to add experience
                             //but only if the level is less than 60 (since that is MAX_LEVEL)
-                            //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION 
+                            //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION/ investigate why setter isn't doing this
                             if(kv.Value.Name == playerName)
                             {
-                                if (uintExperience < 60000)
-                                {
+                                    Console.WriteLine("Experience before adding exp: {0}", kv.Value.Exp);
+                              //  if (uintExperience < 60000)
+                              //  {
                                     players[kv.Key].Exp = uintExperience;
-                                    if(uintExperience > 1000)
+                                    if((uintExperience > 1000) && (players[kv.Key].Level < 60))
                                     {
                                         Console.WriteLine("Ding!");
                                         Console.WriteLine("Ding!");
                                         Console.WriteLine("Ding!");
                                         players[kv.Key].LevelUp(uintExperience);
                                     }
-                                }
-                                else
-                                {
-                                    players[kv.Key].Exp = 0;
+                                Console.WriteLine("Experience after  adding exp: {0}", kv.Value.Exp);
 
-                                }
+                                // }
+                                // else
+                                // {
+                                //     players[kv.Key].Exp = 0;
+
+                                // }
                             }
                         }
                         break;

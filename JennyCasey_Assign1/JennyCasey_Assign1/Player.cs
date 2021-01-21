@@ -104,10 +104,9 @@ namespace JennyCasey_Assign1
             }
             set
             {
-                //may need to fix this functionality but basically if the experience * 1000
-                //is less than the max_level * 1000 we can add the experience
-                //doing it this way since expereience is 1000 * current level, so max experience would be 60,000
-                if ((exp * 1000) < (MAX_LEVEL * 1000))
+                //NEED TO FIX this functionality 
+                //need to ensure that whatever exp is added does not cause the user to go above the max level
+                if (( exp * 1000 < MAX_LEVEL * 1000))
                 {
                     //only incremnt exp if it does not exceed MAX_LEVEL
                     exp += value;
@@ -185,12 +184,18 @@ namespace JennyCasey_Assign1
        
         public void LevelUp(uint experience)
         {
-            //figure out how many levels to add
-            uint levelsToAdd = experience / 1000;
-
-            //add the levels to current level
-            Level += levelsToAdd;
-            Console.WriteLine("Level now is: {0}", Level);
+            uint levelsToAdd = (Level * 1000);
+            //gaining a level is when experience = (current level * 1000);
+            //so if we were at level 3 and wanted to go to level 4 we would need 4000 exp
+            if(experience >= levelsToAdd)
+            {
+                experience /= levelsToAdd;
+                Level += experience;
+            }
+            else 
+            {
+                Level += 0;
+            }
         }
 
         //goes through the guild.txt file, splits the records, stores them in variables
