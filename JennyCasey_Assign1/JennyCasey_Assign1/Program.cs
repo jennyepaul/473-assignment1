@@ -7,6 +7,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace JennyCasey_Assign1
 {
@@ -158,9 +159,11 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        Player.Sort(players);
+                        //Players.Sort();
 
-                        foreach (var player in players)
+                        var sortedDict = from entry in players orderby entry.Value ascending select entry;
+
+                        foreach (var player in sortedDict)
                         {
                             Console.WriteLine("{0}", player.Value);
                         }

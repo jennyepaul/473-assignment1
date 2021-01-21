@@ -211,8 +211,9 @@ namespace JennyCasey_Assign1
             
         }
 
-        public int CompareTo(Player other)
+        /*public int CompareTo(Player other)
         {
+
             if (this.id < other.id)
             {
                 return 1;
@@ -225,6 +226,18 @@ namespace JennyCasey_Assign1
             {
                 return 0;
             }
+        }*/
+
+        public int CompareTo(Player obj)
+        {
+            if (obj == null) return 1;
+
+            Player othername = obj as Player;
+            if (othername != null)
+                return this.name.CompareTo(othername.name);
+            else
+                throw new ArgumentException("object not a id number");
+
         }
 
         public override string ToString()
