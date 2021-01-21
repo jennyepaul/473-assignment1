@@ -93,14 +93,14 @@ namespace JennyCasey_Assign1
                 {
                     //Console.WriteLine(playerRecord);
 
-                    uint parsed_id;
+                    /*uint parsed_id;
                     //string parsed_name;
                     Race parsed_race;
                     uint parsed_level;
                     uint parsed_exp;
                     uint parsed_guildID;
                     //uint[] parsed_gear;
-                    //List<uint> parsed_inventory;
+                    //List<uint> parsed_inventory;*/
 
                     string[] parameter = playerRecord.Split('\t');
 
@@ -110,12 +110,39 @@ namespace JennyCasey_Assign1
                     string level = parameter[3];
                     string exp = parameter[4];
                     string guildId = parameter[5];
-                    string gear = parameter[6];
-                    string inventory = parameter[7];
-                    
+                    //string gear = parameter[6];
+                    //string inventory = parameter[7];
 
+                    string[] gear;
+                    var list = new List<string>();
+                    list.Add(parameter[6]);   //gear number 1
+                    list.Add(parameter[7]);   //gear number 2
+                    list.Add(parameter[8]);   //gear number 3
+                    list.Add(parameter[9]);   //gear number 4
+                    list.Add(parameter[10]);  //gear number 5
+                    list.Add(parameter[11]);  //gear number 6
+                    list.Add(parameter[12]);  //gear number 7
+                    list.Add(parameter[13]);  //gear number 8
+                    list.Add(parameter[14]);  //gear number 9
+                    list.Add(parameter[15]);  //gear number 10
+                    list.Add(parameter[16]);  //gear number 11
+                    list.Add(parameter[17]);  //gear number 12
+                    list.Add(parameter[18]);  //gear number 13
+                    list.Add(parameter[19]);  //gear number 14
+                    gear = list.ToArray();
 
-                    uint.TryParse(parameter[0], out parsed_id);
+                    //Console.WriteLine("ID: {0} Name: {1} Gear(3): {2} Gear(14): {3}", id, name, gear[2], gear[13]);
+                    Console.WriteLine("Gears in Order: (0) {0}, (1) {1}, (2) {2}, (3) {3}, (4) {4}, (5) {5},(6) {6}", 
+                        gear[0], gear[1], gear[2], gear[3], gear[4], gear[5], gear[6]);
+                    Console.WriteLine("Gear (7): {0}", gear[7]);
+                    Console.WriteLine("Gear (8): {0}", gear[8]);
+                    Console.WriteLine("Gear (9): {0}", gear[9]);
+                    Console.WriteLine("Gear (10): {0}", gear[10]);
+                    Console.WriteLine("Gear (11): {0}", gear[11]);
+                    Console.WriteLine("Gear (12): {0}", gear[12]);
+                    Console.WriteLine("Gear (13): {0}", gear[13]);
+
+                    /*uint.TryParse(parameter[0], out parsed_id);
                     Enum.TryParse(parameter[2], out parsed_race);
                     uint.TryParse(parameter[3], out parsed_level);
                     uint.TryParse(parameter[4], out parsed_exp);
@@ -125,7 +152,7 @@ namespace JennyCasey_Assign1
 
                     Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, gear, inventory);
 
-                    players.Add(parsed_id, newPlayer);
+                    players.Add(parsed_id, newPlayer);*/
                 }
             }
 
@@ -148,7 +175,7 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("Name: {0}", Players.name); //??? review later
+                        //Console.WriteLine("Name: {0}", Players.name); //??? review later
                         break;
                     case "2":
                         printGuilds();
