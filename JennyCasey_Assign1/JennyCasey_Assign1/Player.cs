@@ -13,7 +13,7 @@ using System.IO;
 
 namespace JennyCasey_Assign1
 {
-    public class Player
+    public class Player : IComparable<Player>
     {
         //constants for program
         private static uint MAX_LEVEL = 60;
@@ -209,6 +209,22 @@ namespace JennyCasey_Assign1
             experience = Console.ReadLine();
             int intExp = int.Parse(experience);
             
+        }
+
+        public int CompareTo(Player other)
+        {
+            if (this.id < other.id)
+            {
+                return 1;
+            }
+            else if (this.id > other.id)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public override string ToString()

@@ -158,6 +158,8 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
+                        Player.Sort(players);
+
                         foreach (var player in players)
                         {
                             Console.WriteLine("{0}", player.Value);
