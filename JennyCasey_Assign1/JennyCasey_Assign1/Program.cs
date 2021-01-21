@@ -93,14 +93,14 @@ namespace JennyCasey_Assign1
                 {
                     //Console.WriteLine(playerRecord);
 
-                    /*uint parsed_id;
+                    uint parsed_id;
                     //string parsed_name;
                     Race parsed_race;
                     uint parsed_level;
                     uint parsed_exp;
                     uint parsed_guildID;
                     //uint[] parsed_gear;
-                    //List<uint> parsed_inventory;*/
+                    //List<uint> parsed_inventory;
 
                     string[] parameter = playerRecord.Split('\t');
 
@@ -142,17 +142,19 @@ namespace JennyCasey_Assign1
                     Console.WriteLine("Gear (12): {0}", gear[12]);
                     Console.WriteLine("Gear (13): {0}", gear[13]);
 
-                    /*uint.TryParse(parameter[0], out parsed_id);
+                    uint.TryParse(parameter[0], out parsed_id);
                     Enum.TryParse(parameter[2], out parsed_race);
                     uint.TryParse(parameter[3], out parsed_level);
                     uint.TryParse(parameter[4], out parsed_exp);
                     uint.TryParse(parameter[5], out parsed_guildID);
+                    uint[] parsedgear = Array.ConvertAll(gear, g => uint.TryParse(g, out var x) ? x : -1);
+
                     //uint[].TryParse(parameter[6], out parsed_gear);
                     //List<uint>.Tryparse(parameter[7], out parsed_inventory);
 
-                    Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, gear, inventory);
+                    Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, parsedgear, inventory);
 
-                    players.Add(parsed_id, newPlayer);*/
+                    players.Add(parsed_id, newPlayer);
                 }
             }
 
