@@ -251,20 +251,32 @@ namespace JennyCasey_Assign1
                         string playerName = Console.ReadLine();
                         Console.WriteLine("Enter the item name they will equip: ");
                         string itemname = Console.ReadLine();
-                        uint item_id;
+                     
 
-                        //retrieve the items id number using the items name 
-                        //had this loop here and but moved it inside the players loop to see if it would work?
-                        /*foreach (var item in items)
+                        foreach (var player in players)
                         {
-                            if (itemname == item.Value.Name)
+                            foreach (var item in items)
                             {
-                                Console.WriteLine("Item's ID: {0}", item.Key);
-                                item_id = item.Key;
-                            }
-                        }*/
+                                if (itemname == item.Value.Name)
+                                {
+                                    players[player.Key].Equipgear(item.Key);
 
-                        uint playerslevel;
+                                    if (player.Value.Name == playerName)
+                                    {
+                                        if (player.Value.Level <= item.Value.Requirement)
+                                            Console.WriteLine("Player level <= item requirement throw exception here");
+                                        else
+                                            Console.WriteLine("Players level meets the item requirement!");
+
+                                        Console.WriteLine(item.Value);
+                                    }
+                                }
+                            }
+
+                        }
+                        
+
+                        /*uint playerslevel;
                         uint itemreq;
 
                         foreach (var player in players)
@@ -293,13 +305,11 @@ namespace JennyCasey_Assign1
                                         else
                                             Console.WriteLine("Players level meets the item requirement!");
 
-                                        Console.WriteLine("The item to be Equipped: {0}", item.Value);
-                                    
-                                        
+                                        Console.WriteLine("The item to be Equipped: {0}", item.Value);                                                                   
                                     }
                                 }
                             }
-                        }
+                        }*/
                         
                         
 

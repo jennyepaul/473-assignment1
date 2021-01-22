@@ -207,12 +207,19 @@ namespace JennyCasey_Assign1
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
+            
             for ( int i = 0; i <= 13; i++)
             {
                 if (newGearID == gear[i])
-                    Console.WriteLine("Your Gear is valid piece!");
-                
+                {
+                    //thow exception here saying the gear is already equipped
+                    Console.WriteLine("Your Gear is an invalid piece throw exception!");
+                    break;
+                }
             }
+            
+
+
 
             //if the players level matches or exceeds the level requirement
             //throw a new exception with an appropriate error message as the arguement 
