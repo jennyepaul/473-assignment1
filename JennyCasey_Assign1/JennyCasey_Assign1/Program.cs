@@ -312,7 +312,6 @@ namespace JennyCasey_Assign1
                         isContinuing = false;
                         break;
                     case "11": case "T":
-
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
