@@ -153,8 +153,26 @@ namespace JennyCasey_Assign1
         //gear array with throw exception if out of range
         public uint this[int index]
         {
-            get => gear[index];
-            set => gear[index] = value;
+            //get => gear[index];
+            //set => gear[index] = value;
+            get
+            {
+                if(index >= 0 && index <= GEAR_SLOTS)
+                {
+                    return gear[index];
+
+                }
+                else 
+                {
+                    throw new Exception();
+}
+                }
+            set
+            {
+                gear[index] = value;
+            }
+            
+            
         }
 
         public List<uint> Inventory
