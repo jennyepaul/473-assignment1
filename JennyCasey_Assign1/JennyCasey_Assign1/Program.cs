@@ -185,7 +185,6 @@ namespace JennyCasey_Assign1
                         {
                             if (name.Value.Name == playerName1)
                             {
-                               
                                 //printing out the full value/info of player
                                 Console.WriteLine("{0}", name.Value);
 
@@ -196,7 +195,6 @@ namespace JennyCasey_Assign1
                                     //search only the length of the player's gear[] to avoid errors
                                     for (int i = 0; i < name.Value.Length; i++)
                                     {
-
                                         if (itemID.Key == name.Value[i])
                                         {
                                             Console.WriteLine(itemID.Value);
@@ -269,19 +267,16 @@ namespace JennyCasey_Assign1
                         {
                             //if the name the user entered is a value in the dictionary, then we want to add experience
                             //but only if the level is less than 60 (since that is MAX_LEVEL)
-                            //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION/ investigate why setter isn't doing this
                             if(player.Value.Name == playerName4)
                             {
-                                    players[player.Key].Exp = uintExperience;
+                                players[player.Key].Exp = uintExperience;
 
-                                    //if enough experience was entered, we may need to level up
-                                    if((uintExperience > 1000) && (players[player.Key].Level < 60))
-                                    {
-                                        Console.WriteLine("Ding!");
-                                        Console.WriteLine("Ding!");
-                                        Console.WriteLine("Ding!");
-                                        players[player.Key].LevelUp(uintExperience);
-                                    }
+                                //if enough experience was entered, we may need to level up
+                                if((uintExperience > 1000) && (players[player.Key].Level < 60))
+                                {
+                                    Console.WriteLine("Ding!" + "\n" + "Ding!" + "\n" + "Ding!");
+                                    players[player.Key].LevelUp(uintExperience);
+                                }
                             }
                         }
                         break;
