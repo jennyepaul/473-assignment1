@@ -247,6 +247,66 @@ namespace JennyCasey_Assign1
                         break;
                     case "7":
                         Console.WriteLine("You chose to equip some gear!");
+                        Console.WriteLine("Enter the player name: ");
+                        string playerName = Console.ReadLine();
+                        Console.WriteLine("Enter the item name they will equip: ");
+                        string itemname = Console.ReadLine();
+                        uint item_id;
+
+                        //retrieve the items id number using the items name 
+                        //had this loop here and but moved it inside the players loop to see if it would work?
+                        /*foreach (var item in items)
+                        {
+                            if (itemname == item.Value.Name)
+                            {
+                                Console.WriteLine("Item's ID: {0}", item.Key);
+                                item_id = item.Key;
+                            }
+                        }*/
+
+                        uint playerslevel;
+                        uint itemreq;
+
+                        foreach (var player in players)
+                        {
+                            //this should have item_id as the arguement, but I get error
+                            //players[player.Key].Equipgear(1350);
+                            
+                            foreach (var item in items)
+                            {
+                                if (itemname == item.Value.Name)
+                                {
+                                    item_id = item.Key;
+                                    players[player.Key].Equipgear(item_id);
+
+                                    
+                                    itemreq = item.Value.Requirement;
+                                    //getting error for using players level here and dont know wh
+                                    if (player.Value.Name == playerName)
+                                    {
+                                        Console.WriteLine("Item's ID: {0}", item_id);
+                                        Console.WriteLine("Players LeveL: {0}", player.Value.Level);
+                                        Console.WriteLine("Items Requirement: {0}", item.Value.Requirement);
+                                        playerslevel = player.Value.Level;
+                                        if (playerslevel <= itemreq)
+                                            Console.WriteLine("Player level <= item requirement throw exception here");
+                                        else
+                                            Console.WriteLine("Players level meets the item requirement!");
+
+                                        Console.WriteLine("The item to be Equipped: {0}", item.Value);
+                                    
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        
+                        
+
+
+                        
+
+
                         break;
                     case "8":
                         Console.WriteLine("You chose to unequip some gear!");

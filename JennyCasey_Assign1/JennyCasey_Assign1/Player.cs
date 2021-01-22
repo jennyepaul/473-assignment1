@@ -207,10 +207,12 @@ namespace JennyCasey_Assign1
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
-            /* if (!gear.Contains(newGearID))
+            for ( int i = 0; i <= 13; i++)
             {
-                Console.Write("your gear id does match any in the system");
-            }*/
+                if (newGearID == gear[i])
+                    Console.WriteLine("Your Gear is valid piece!");
+                
+            }
 
             //if the players level matches or exceeds the level requirement
             //throw a new exception with an appropriate error message as the arguement 
