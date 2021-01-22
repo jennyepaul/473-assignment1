@@ -190,6 +190,8 @@ namespace JennyCasey_Assign1
                             {
                                 //printing out the full value/info of player
                                 Console.WriteLine("{0}", item.Value);
+                                //only returns first value, so have to figure out how to have it continually return
+                                Console.WriteLine("ID of items: {0}", item.Value.ReturnArray());
                                 
 
                                 //need to print out the gear[] array

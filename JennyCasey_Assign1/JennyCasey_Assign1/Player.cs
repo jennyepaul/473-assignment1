@@ -170,6 +170,22 @@ namespace JennyCasey_Assign1
             }
         }
 
+        //bad attempt, jsut want to see if we can access the items in gear
+        //need to figure out how to add this to main/do this in main
+        public uint ReturnArray()
+        {
+            foreach(var x in gear)
+            {
+                if(gear.Length != 0)
+                {
+                    Console.Write(x + " ");
+                   
+                }
+            }
+            
+            return 0;
+        }
+
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
