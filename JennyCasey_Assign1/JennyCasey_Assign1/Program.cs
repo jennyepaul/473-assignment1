@@ -136,7 +136,7 @@ namespace JennyCasey_Assign1
                     uint.TryParse(parameter[4], out parsed_exp);
                     uint.TryParse(parameter[5], out parsed_guildID);
                     uint[] parsedgear = Array.ConvertAll(gear, g => uint.TryParse(g, out var x) ? x : 0);
-                    List<uint> inventory1 = null;                    
+                    List<uint> inventory1 = new List<uint>();                    
 
                     Player newPlayer = new Player(parsed_id, name, parsed_race, parsed_level, parsed_exp, parsed_guildID, parsedgear, inventory1);
 
@@ -249,7 +249,34 @@ namespace JennyCasey_Assign1
                         Console.WriteLine("You chose to equip some gear!");
                         break;
                     case "8":
-                        Console.WriteLine("You chose to unequip some gear!");
+                        int itemIndex;
+                        Console.Write("Enter the player name: ");
+                        string playerName = Console.ReadLine();
+                        Console.Write("Enter the item slot number they will unequip: ");
+                        Console.WriteLine("\n\t 0 = Helmet");
+                        Console.WriteLine("\t 1 = Neck");
+                        Console.WriteLine("\t 2 = Shoulders");
+                        Console.WriteLine("\t 3 = Back");
+                        Console.WriteLine("\t 4 = Chest");
+                        Console.WriteLine("\t 5 = Wrist");
+                        Console.WriteLine("\t 6 = Gloves");
+                        Console.WriteLine("\t 7 = Belt");
+                        Console.WriteLine("\t 8 = Pants");
+                        Console.WriteLine("\t 9 = Boots");
+                        Console.WriteLine("\t 10 = Ring");
+                        Console.WriteLine("\t 11 = Trinket");
+                        string itemChoice = Console.ReadLine();
+                        int.TryParse(itemChoice, out itemIndex);
+
+                        foreach (var player in players)
+                        {
+                            if (playerName == player.Value.Name)
+                            {
+                                players[player.Key].UnequipGear(itemIndex);
+                            }
+                            
+                        }
+                        
                         break;
                     case "9":
                         //get the player name then do a lookup in the dictionary for that player
@@ -285,7 +312,7 @@ namespace JennyCasey_Assign1
                         isContinuing = false;
                         break;
                     case "11": case "T":
-                        //will make use of IComparable by creating new sortedSets for Item and Player
+
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
