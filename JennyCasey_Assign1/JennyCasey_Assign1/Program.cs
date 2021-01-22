@@ -272,7 +272,6 @@ namespace JennyCasey_Assign1
                             //MAY NEED TO FIND A WAY TO CLEAN THIS UP/MAKE A FUNCTION/ investigate why setter isn't doing this
                             if(player.Value.Name == playerName4)
                             {
-                                    Console.WriteLine("Experience before adding exp: {0}", player.Value.Exp);
                                     players[player.Key].Exp = uintExperience;
 
                                     //if enough experience was entered, we may need to level up
@@ -283,7 +282,6 @@ namespace JennyCasey_Assign1
                                         Console.WriteLine("Ding!");
                                         players[player.Key].LevelUp(uintExperience);
                                     }
-                                Console.WriteLine("Experience after  adding exp: {0}", player.Value.Exp);
                             }
                         }
                         break;
