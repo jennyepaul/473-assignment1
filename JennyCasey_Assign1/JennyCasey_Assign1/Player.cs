@@ -38,7 +38,7 @@ namespace JennyCasey_Assign1
             exp = 0;
             guildId = 0;
             gear = new uint[0];
-            //inventory = 0;
+            inventory = new List<uint>();
         }
 
 
@@ -188,22 +188,6 @@ namespace JennyCasey_Assign1
             }
         }
 
-        //bad attempt, jsut want to see if we can access the items in gear
-        //need to figure out how to add this to main/do this in main
-        public uint ReturnArray()
-        {
-            foreach(var x in gear)
-            {
-                if(gear.Length != 0)
-                {
-                    Console.Write(x + " ");
-                   
-                }
-            }
-            
-            return 0;
-        }
-
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
@@ -223,11 +207,33 @@ namespace JennyCasey_Assign1
 
         public void UnequipGear(int gearSlot)
         {
-            //need to evaluate if the indicated index of the gearSlot (int gearSlot) in the gear array is already occupied
-            //if it is occupied, place the item there (At that index) into the player's inventory (use a method ot do this)
-            //throw an exception if the number of elements in the inventory is the same or greater than the constant that represents
-            //the max size of inventory
+            uint gearToUnequip = gear[gearSlot];
+            List<uint> tempGear = new List<uint>(gear);
 
+            //if the gear at that index is not empty (0) add it to the inventory
+            if (gearToUnequip != 0)
+            {
+                //if the inventory is not full, we can add to it
+                if(Inventory.Count <= MAX_INVENTORY_SIZE)
+                {
+                    //inserting the gear into the index in the inventory
+                    Inventory.Add(gear[gearSlot]);
+
+                    //removing the gear from the player
+                    tempGear.Remove(gearToUnequip);
+
+                    //converting back to an array
+                    gear = tempGear.ToArray();
+                }
+                else
+                {
+                    throw new Exception("Inventory is full");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No gear item available in that slot to unequip");
+            }
         }
 
         public void LevelUp(uint experience)
