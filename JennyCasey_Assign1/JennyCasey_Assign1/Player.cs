@@ -328,8 +328,12 @@ namespace JennyCasey_Assign1
 
             gear = gearlist.ToArray();
 
-            
 
+            Console.WriteLine("Back to Array");
+            foreach (var i in gear)
+            {
+                Console.WriteLine(i);
+            }
 
 
 
