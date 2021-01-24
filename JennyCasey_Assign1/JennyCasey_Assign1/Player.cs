@@ -13,7 +13,7 @@ using System.IO;
 
 namespace JennyCasey_Assign1
 {
-    public class Player
+    public class Player : IComparable<Player>
     {
         //constants for program
         private static uint MAX_LEVEL = 60;
@@ -316,6 +316,16 @@ namespace JennyCasey_Assign1
             }
             return 0;
         }
+
+        public int CompareTo(Player alpha)
+        {
+            if (alpha == null)
+                throw new ArgumentNullException();
+            else 
+                return this.Name;
+
+        }
+
         public override string ToString()
         {
             //checking if the player is part of a guild (guildID > 0)
