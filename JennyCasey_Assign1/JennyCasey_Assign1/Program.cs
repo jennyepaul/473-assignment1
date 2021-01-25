@@ -286,6 +286,17 @@ namespace JennyCasey_Assign1
                         break;
                     case "11": case "T":
                         //will make use of IComparable by creating new sortedSets for Item and Player
+                        SortedSet<string> PlayerSortedSet = new SortedSet<string>();
+
+                        foreach (var i in players)
+                        {
+                            PlayerSortedSet.Add(i.Value.Name);
+                        }
+
+                        foreach (var i in PlayerSortedSet)
+                        {
+                            Console.WriteLine(i);
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid choice");

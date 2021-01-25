@@ -321,8 +321,8 @@ namespace JennyCasey_Assign1
         {
             if (alpha == null)
                 throw new ArgumentNullException();
-            else 
-                return this.Name;
+            else
+                return this.Name.CompareTo(alpha); 
 
         }
 
