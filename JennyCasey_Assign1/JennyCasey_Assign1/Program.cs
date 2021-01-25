@@ -259,25 +259,34 @@ namespace JennyCasey_Assign1
                         Console.Write("Enter the item name they will equip: ");
                         string itemname = Console.ReadLine();
 
+                        bool success = false;
+
                         foreach (var player in players)
                         {
                             if (player.Value.Name == playerName0) //if the player name matches on in the dictonary 
-                            {
+                            {                              
                                 foreach (var item in items)
                                 {
                                     if (itemname == item.Value.Name) //if the item matches one in the dictonary
                                     {
                                         //check to see if the players level makes them eligable to equip the item
-                                        if (player.Value.Level < item.Value.Requirement) 
+                                        if (player.Value.Level < item.Value.Requirement)
                                             throw new Exception("Player doesn't meet Requirement");
                                         else
                                         {
                                             players[player.Key].Equipgear(item.Key);
+                                            success = true;
                                         }
-                                    }                              
-                                }                       
-                            }                      
+                                    }
+                                }
+                            }
                         }
+
+                        if (success == true)
+                            Console.WriteLine("Success!");
+                        else
+                            Console.WriteLine("Failure....Try Again.");
+
                         break;
 
                     case "8":
