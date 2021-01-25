@@ -183,28 +183,33 @@ namespace JennyCasey_Assign1
                         string playerName1 = Console.ReadLine();
                         //search for the player in the players dictionary
                         //if we find it, then print out the player info
+                        
                         foreach(var name in players)
                         {
                             if (name.Value.Name == playerName1)
                             {
                                 //printing out the full value/info of player
                                 Console.WriteLine("{0}", name.Value);
-
-                                //iterated through item dictionary and if the ID of the gear
-                                //matches the ID of the gear the player has, we print the info on it
-                                foreach(var itemID in items)
+                                for(int i = 0; i < name.Value.Length; i++)
                                 {
-                                    //search only the length of the player's gear[] to avoid errors
-                                    for (int i = 0; i < name.Value.Length; i++)
+                                    //if the value is zero, then it's empty and we will print that
+                                    if(name.Value[i] == 0)
                                     {
-                                        //if the item ID is in the players gear list, then print it out
-                                        if (itemID.Key == name.Value[i])
+                                        name.Value.EmptyGear(i);
+                                    }
+                                    //else it is not empty and let's print the item info
+                                    else
+                                    {
+                                        foreach(var itemID in items)
                                         {
-                                            Console.WriteLine(itemID.Value);
+                                            if (itemID.Key == name.Value[i])
+                                            {
+                                                Console.WriteLine(itemID.Value);
+                                            }
                                         }
-                                    }      
-                                }                               
-                            }                           
+                                    }
+                                }
+                            }                                 
                         }                        
                         break;
                     case "5":

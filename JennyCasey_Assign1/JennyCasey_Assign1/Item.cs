@@ -185,9 +185,10 @@ namespace JennyCasey_Assign1
 
         //overridden ToString() method
         public override string ToString()
-        {
+        {    
+ 
             return "(" + this.Type + ") " + this.Name + " |" + this.Ilvl + "| --" + this.Requirement + "--" + "\n\t" + this.Flavor;
+            
         }
-
     }
 }
