@@ -276,10 +276,8 @@ namespace JennyCasey_Assign1
                             if (playerName == player.Value.Name)
                             {
                                 players[player.Key].UnequipGear(itemIndex);
-                            }
-                            
-                        }
-                        
+                            }                           
+                        }                        
                         break;
                     case "9":
                         //get the player name then do a lookup in the dictionary for that player
@@ -315,6 +313,17 @@ namespace JennyCasey_Assign1
                         isContinuing = false;
                         break;
                     case "11": case "T":
+                        //create SortedSet, fill it with the name of items, then print out
+                        //the sorted names
+                        SortedSet<string> sortedItems = new SortedSet<string>();
+                        foreach (var nameOfItem in items)
+                        {
+                            sortedItems.Add(nameOfItem.Value.Name);
+                        }
+                        foreach (var i in sortedItems)
+                        {
+                            Console.WriteLine(i);
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
