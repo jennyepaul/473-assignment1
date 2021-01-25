@@ -341,14 +341,9 @@ namespace JennyCasey_Assign1
                 default:
                     Console.WriteLine("ID not found");
                     break;
-
-
             }
-
             //put the gear list back into an arrray 
             gear = gearlist.ToArray();
-
-
         }
 
         public void UnequipGear(int gearSlot)
@@ -474,7 +469,6 @@ namespace JennyCasey_Assign1
         public uint FindGuildId(string guildNameToFind)
         {
             string guildRecord;
-            string name;
             uint uintGuildId;
 
             var guilds = new Dictionary<uint, string>();
