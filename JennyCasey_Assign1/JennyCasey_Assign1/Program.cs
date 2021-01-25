@@ -254,11 +254,9 @@ namespace JennyCasey_Assign1
                         }
                         break;
                     case "7":
-
-                        Console.WriteLine("You chose to equip some gear!");
-                        Console.WriteLine("Enter the player name: ");
+                        Console.Write("Enter the player name: ");
                         string playerName0 = Console.ReadLine();
-                        Console.WriteLine("Enter the item name they will equip: ");
+                        Console.Write("Enter the item name they will equip: ");
                         string itemname = Console.ReadLine();                     
 
                         foreach (var player in players)
@@ -270,7 +268,7 @@ namespace JennyCasey_Assign1
                                     if (itemname == item.Value.Name)
                                     {
 
-                                        if (player.Value.Level <= item.Value.Requirement)
+                                        if (player.Value.Level < item.Value.Requirement)
                                             throw new Exception("Player doesn't meet Requirement");
                                         else
                                         {
