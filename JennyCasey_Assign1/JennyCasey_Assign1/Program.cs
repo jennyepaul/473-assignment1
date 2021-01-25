@@ -257,13 +257,13 @@ namespace JennyCasey_Assign1
 
                         Console.WriteLine("You chose to equip some gear!");
                         Console.WriteLine("Enter the player name: ");
-                        string playerName = Console.ReadLine();
+                        string playerName0 = Console.ReadLine();
                         Console.WriteLine("Enter the item name they will equip: ");
                         string itemname = Console.ReadLine();                     
 
                         foreach (var player in players)
                         {
-                            if (player.Value.Name == playerName)
+                            if (player.Value.Name == playerName0)
                             {
                                 foreach (var item in items)
                                 {
