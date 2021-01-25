@@ -257,29 +257,29 @@ namespace JennyCasey_Assign1
                         Console.Write("Enter the player name: ");
                         string playerName0 = Console.ReadLine();
                         Console.Write("Enter the item name they will equip: ");
-                        string itemname = Console.ReadLine();                     
+                        string itemname = Console.ReadLine();
 
                         foreach (var player in players)
                         {
-                            if (player.Value.Name == playerName0)
+                            if (player.Value.Name == playerName0) //if the player name matches on in the dictonary 
                             {
                                 foreach (var item in items)
                                 {
-                                    if (itemname == item.Value.Name)
+                                    if (itemname == item.Value.Name) //if the item matches one in the dictonary
                                     {
-
-                                        if (player.Value.Level < item.Value.Requirement)
+                                        //check to see if the players level makes them eligable to equip the item
+                                        if (player.Value.Level < item.Value.Requirement) 
                                             throw new Exception("Player doesn't meet Requirement");
                                         else
                                         {
-                                            int index = (int)item.Value.Type;
                                             players[player.Key].Equipgear(item.Key);
                                         }
-                                    }
-                                }
-                            }
+                                    }                              
+                                }                       
+                            }                      
                         }
                         break;
+
                     case "8":
                         int itemIndex;
                         Console.Write("Enter the player name: ");
