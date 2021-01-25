@@ -209,132 +209,106 @@ namespace JennyCasey_Assign1
             //determine if this is a valid piece of gear at all
             List<uint> gearlist = gear.ToList();
 
-            //Console.WriteLine(gearlist[0]);
             
             for (int i = 0; i <= 13; i++)
             {
                 if (newGearID == gear[i])
                 {
-                    //thow exception here saying the gear is already equipped
-                    Console.WriteLine("Your Gear is an invalid piece throw exception!");
-                    break;
+                    //thow exception saying the gear is already equipped
+                    throw new Exception("Player has this gear equipped");
                 }
 
             }
-
-            foreach (var i in gearlist)
-                Console.WriteLine(i);
-
-            if (newGearID == 1 || newGearID == 1337)
+           
+            int g = 0;
+            for (uint i = 1337; i < 1347; i++)
             {
-                gearlist.Insert(0, newGearID);
-                gearlist.RemoveAt(1);
-            }
-            else if (newGearID == 1338)
-            {
-                gearlist.Insert(1, newGearID);
-                gearlist.RemoveAt(2);
-            }
-            else if (newGearID == 1339)
-            {
-                gearlist.Insert(2, newGearID);
-                gearlist.RemoveAt(3);
-            }
-            else if (newGearID == 2 || newGearID == 1340)
-            {
-                gearlist.Insert(3, newGearID);
-                gearlist.RemoveAt(4);
-            }
-            else if (newGearID == 3 || newGearID == 1341)
-            {
-                gearlist.Insert(4, newGearID);
-                gearlist.RemoveAt(5);
-            }
-            else if (newGearID == 1342)
-            {
-                gearlist.Insert(5, newGearID);
-                gearlist.RemoveAt(6);
-            }
-            else if (newGearID == 4 || newGearID == 1343)
-            {
-                gearlist.Insert(6, newGearID);
-                gearlist.RemoveAt(7);
-            }
-            else if (newGearID == 1344)
-            {
-                gearlist.Insert(7, newGearID);
-                gearlist.RemoveAt(8);
-            }
-            else if (newGearID == 5 || newGearID == 1345)
-            {
-                gearlist.Insert(8, newGearID);
-                gearlist.RemoveAt(9);
-            }
-            else if (newGearID == 6 || newGearID == 1346)
-            {
-                gearlist.Insert(9, newGearID);
-                gearlist.RemoveAt(10);
-            }
-            else if (newGearID == 1347 || newGearID == 1348)
-            {
-                if (gearlist[10] == 0 && gearlist[11] == 0)
+                if (newGearID == i)
                 {
-                    gearlist.Insert(10, newGearID);
-                    gearlist.RemoveAt(11);
+                    gearlist.Insert(g, newGearID);
+                    gearlist.RemoveAt(g + 1);
                 }
-                else if (gearlist[10] == 0)
+                else if (newGearID == 1)
                 {
-                    gearlist.Insert(10, newGearID);
-                    gearlist.RemoveAt(11);
+                    gearlist.Insert(0, newGearID);
+                    gearlist.RemoveAt(1);
                 }
-                else if (gearlist[11] == 0)
+                else if (newGearID == 2)
                 {
-                    gearlist.Insert(11, newGearID);
-                    gearlist.RemoveAt(12);
+                    gearlist.Insert(3, newGearID);
+                    gearlist.RemoveAt(4);
                 }
-                else
+                else if (newGearID == 3)
                 {
-                    gearlist.Insert(10, newGearID);
-                    gearlist.RemoveAt(11);
+                    gearlist.Insert(4, newGearID);
+                    gearlist.RemoveAt(5);
                 }
-            }
-            else if (newGearID == 1739 || newGearID == 1349 || newGearID == 1350)
-            {
-                if (gearlist[12] == 0 && gearlist[13] == 0)
+                else if (newGearID == 4)
                 {
-                    gearlist.Insert(12, newGearID);
-                    gearlist.RemoveAt(13);
+                    gearlist.Insert(6, newGearID);
+                    gearlist.RemoveAt(7);
                 }
-                else if (gearlist[12] == 0)
+                else if (newGearID == 5)
                 {
-                    gearlist.Insert(12, newGearID);
-                    gearlist.RemoveAt(13);
+                    gearlist.Insert(8, newGearID);
+                    gearlist.RemoveAt(9);
                 }
-                else if (gearlist[13] == 0)
+                else if (newGearID == 6)
                 {
-                    gearlist.Insert(13, newGearID);
-                    gearlist.RemoveAt(14);
+                    gearlist.Insert(9, newGearID);
+                    gearlist.RemoveAt(10);
                 }
-                else
+                else if (newGearID == 1347 || newGearID == 1348)
                 {
-                    gearlist.Insert(12, newGearID);
-                    gearlist.RemoveAt(13);
+                    if (gearlist[10] == 0 && gearlist[11] == 0)
+                    {
+                        gearlist.Insert(10, newGearID);
+                        gearlist.RemoveAt(11);
+                    }
+                    else if (gearlist[10] == 0)
+                    {
+                        gearlist.Insert(10, newGearID);
+                        gearlist.RemoveAt(11);
+                    }
+                    else if (gearlist[11] == 0)
+                    {
+                        gearlist.Insert(11, newGearID);
+                        gearlist.RemoveAt(12);
+                    }
+                    else
+                    {
+                        gearlist.Insert(10, newGearID);
+                        gearlist.RemoveAt(11);
+                    }
                 }
+                else if (newGearID == 1739 || newGearID == 1349 || newGearID == 1350)
+                {
+                    if (gearlist[12] == 0 && gearlist[13] == 0)
+                    {
+                        gearlist.Insert(12, newGearID);
+                        gearlist.RemoveAt(13);
+                    }
+                    else if (gearlist[12] == 0)
+                    {
+                        gearlist.Insert(12, newGearID);
+                        gearlist.RemoveAt(13);
+                    }
+                    else if (gearlist[13] == 0)
+                    {
+                        gearlist.Insert(13, newGearID);
+                        gearlist.RemoveAt(14);
+                    }
+                    else
+                    {
+                        gearlist.Insert(12, newGearID);
+                        gearlist.RemoveAt(13);
+                    }
+                }
+                g++;
             }
 
-            Console.WriteLine("After:");
-            foreach (var i in gearlist)
-                Console.WriteLine(i);
-
+            //put the gear list back into an arrray 
             gear = gearlist.ToArray();
-
-
-            Console.WriteLine("Back to Array");
-            foreach (var i in gear)
-            {
-                Console.WriteLine(i);
-            }
-
 
 
 
