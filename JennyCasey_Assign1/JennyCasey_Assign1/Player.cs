@@ -518,10 +518,14 @@ namespace JennyCasey_Assign1
                     Console.WriteLine("Boots: empty");
                     break;
                 case 10:
+                    Console.WriteLine("Trinket: empty");
+                    break;
                 case 11:
                     Console.WriteLine("Ring: empty");
                     break;
                 case 12:
+                    Console.WriteLine("Trinket: empty");
+                    break;
                 case 13:
                     Console.WriteLine("Trinket: empty");
                     break;
