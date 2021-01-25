@@ -15,6 +15,8 @@ namespace JennyCasey_Assign1
 {
     public class Player
     {
+        
+
         //constants for program
         private static uint MAX_LEVEL = 60;
         private static uint GEAR_SLOTS = 14;
@@ -197,9 +199,10 @@ namespace JennyCasey_Assign1
             bool OneRing = false;
             bool BothTrinket = false;
             bool OneTrinket = false;
+            bool AlternateSlot = true;
 
             
-
+            //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
             {
                 if (newGearID == gear[i])
@@ -210,64 +213,70 @@ namespace JennyCasey_Assign1
 
             }
 
+            //if both ring slot are empty 
             if (gear[10] == 0 && gear[11] == 0)
             {
                 BothRing = true;
             }
-            else if (gear[10] == 0 || gear[11] == 0)
+            else if (gear[10] == 0 || gear[11] == 0) //if one of the ring slots is empty 
             {
                 OneRing = true;
             }
 
-            if (gear[12] == 0 && gear[13] == 0)
+            //if both trinket slots are empty 
+            if (gear[12] == 0 && gear[13] == 0) 
             {
                 BothTrinket = true;
             }
-            else if (gear[12] == 0 || gear[13] == 0)
+            else if (gear[12] == 0 || gear[13] == 0) //if one of the trinket slots are empty
             {
                 OneTrinket = true;
             }
 
-            int g = 0;
-            for (uint i = 1337; i < 1347; i++)
+            //use the gear Id to find which slot in the gear array it goes
+            switch (newGearID)
             {
-                if (newGearID == i)
-                {
-                    gearlist.Insert(g, newGearID);
-                    gearlist.RemoveAt(g + 1);
-                }
-                else if (newGearID == 1)
-                {
+                case 1337: case 1:
                     gearlist.Insert(0, newGearID);
                     gearlist.RemoveAt(1);
-                }
-                else if (newGearID == 2)
-                {
+                    break;
+                case 1338:
+                    gearlist.Insert(1, newGearID);
+                    gearlist.RemoveAt(2);
+                    break;
+                case 1339:
+                    gearlist.Insert(2, newGearID);
+                    gearlist.RemoveAt(3);
+                    break;
+                case 1340: case 2:
                     gearlist.Insert(3, newGearID);
                     gearlist.RemoveAt(4);
-                }
-                else if (newGearID == 3)
-                {
+                    break;
+                case 1341: case 3:
                     gearlist.Insert(4, newGearID);
                     gearlist.RemoveAt(5);
-                }
-                else if (newGearID == 4)
-                {
+                    break;
+                case 1342:
+                    gearlist.Insert(5, newGearID);
+                    gearlist.RemoveAt(6);
+                    break;
+                case 1343:
                     gearlist.Insert(6, newGearID);
                     gearlist.RemoveAt(7);
-                }
-                else if (newGearID == 5)
-                {
+                    break;
+                case 1344:
+                    gearlist.Insert(7, newGearID);
+                    gearlist.RemoveAt(8);
+                    break;
+                case 1345:
                     gearlist.Insert(8, newGearID);
                     gearlist.RemoveAt(9);
-                }
-                else if (newGearID == 6)
-                {
+                    break;
+                case 1346:
                     gearlist.Insert(9, newGearID);
                     gearlist.RemoveAt(10);
-                }
-                else if (newGearID == 1347 || newGearID == 1348)
-                {
+                    break;
+                case 1347: case 1348:
                     if (BothRing == true)
                     {
                         gearlist.Insert(10, newGearID);
@@ -275,27 +284,36 @@ namespace JennyCasey_Assign1
                     }
                     else if (gearlist[10] == 0 && OneRing == true)
                     {
-                        
+                        gearlist.Insert(11, newGearID);
+                        gearlist.RemoveAt(12);
                     }
                     else if (gearlist[11] == 0 && OneRing == true)
                     {
                         gearlist.Insert(11, newGearID);
                         gearlist.RemoveAt(12);
-                    }
+                    }    
                     else
                     {
-                        gearlist.Insert(10, newGearID);
-                        gearlist.RemoveAt(11);
+                        AlternateSlot = !AlternateSlot;
+                        if (AlternateSlot == false)
+                        {
+                            gearlist.Insert(10, newGearID);
+                            gearlist.RemoveAt(11);
+                        }
+                        else
+                        {
+                            gearlist.Insert(11, newGearID);
+                            gearlist.RemoveAt(12);
+                        }
                     }
-                }
-                else if (newGearID == 1739 || newGearID == 1349 || newGearID == 1350)
-                {
+                    break;
+                case 1739: case 1349: case 1350:
                     if (BothTrinket == true)
                     {
                         gearlist.Insert(12, newGearID);
                         gearlist.RemoveAt(13);
                     }
-                    else if (gearlist[12] == 0 && OneTrinket == true )
+                    else if (gearlist[12] == 0 && OneTrinket == true)
                     {
                         gearlist.Insert(12, newGearID);
                         gearlist.RemoveAt(13);
@@ -306,25 +324,30 @@ namespace JennyCasey_Assign1
                         gearlist.RemoveAt(14);
                     }
                     else
-                    {
-                        gearlist.Insert(12, newGearID);
-                        gearlist.RemoveAt(13);
+                    {                       
+                        AlternateSlot = !AlternateSlot;
+                        if (AlternateSlot == false)
+                        {
+                            gearlist.Insert(12, newGearID);
+                            gearlist.RemoveAt(13);
+                        }
+                        else
+                        {
+                            gearlist.Insert(13, newGearID);
+                            gearlist.RemoveAt(14);
+                        }
                     }
-                }
-                g++;
+                    break;
+                default:
+                    Console.WriteLine("ID not found");
+                    break;
+
+
             }
 
             //put the gear list back into an arrray 
             gear = gearlist.ToArray();
 
-
-
-            //if the players level matches or exceeds the level requirement
-            //throw a new exception with an appropriate error message as the arguement 
-
-            //if the tests above are passed, place that ID value into the correct element of your gear array
-            /*int pos = (gear.Length - 1);
-            gear[pos] = newGearID;*/
 
         }
 

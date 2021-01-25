@@ -257,7 +257,7 @@ namespace JennyCasey_Assign1
                         Console.Write("Enter the player name: ");
                         string playerName0 = Console.ReadLine();
                         Console.Write("Enter the item name they will equip: ");
-                        string itemname = Console.ReadLine();                     
+                        string itemname = Console.ReadLine();
 
                         foreach (var player in players)
                         {
@@ -272,14 +272,14 @@ namespace JennyCasey_Assign1
                                             throw new Exception("Player doesn't meet Requirement");
                                         else
                                         {
-                                            int index = (int)item.Value.Type;
                                             players[player.Key].Equipgear(item.Key);
                                         }
-                                    }
-                                }
-                            }
+                                    }                              
+                                }                       
+                            }                      
                         }
                         break;
+
                     case "8":
                         int itemIndex;
                         Console.Write("Enter the player name: ");
