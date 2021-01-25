@@ -177,6 +177,8 @@ namespace JennyCasey_Assign1
                             Console.WriteLine("{0}" , item.Value);
                         break;
                     case "4":
+                        //need to add the "empty" if the player does not have that type of equipment
+
                         Console.Write("Enter the player name: ");
                         string playerName1 = Console.ReadLine();
                         //search for the player in the players dictionary
@@ -195,14 +197,15 @@ namespace JennyCasey_Assign1
                                     //search only the length of the player's gear[] to avoid errors
                                     for (int i = 0; i < name.Value.Length; i++)
                                     {
+                                        //if the item ID is in the players gear list, then print it out
                                         if (itemID.Key == name.Value[i])
                                         {
                                             Console.WriteLine(itemID.Value);
                                         }
                                     }      
-                                }
-                            }
-                        }
+                                }                               
+                            }                           
+                        }                        
                         break;
                     case "5":
                         Console.Write("Enter the player name: ");
