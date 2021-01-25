@@ -170,6 +170,7 @@ namespace JennyCasey_Assign1
             }
         }
 
+
         //sort by name for items
         public int CompareTo(Item alpha)
         {

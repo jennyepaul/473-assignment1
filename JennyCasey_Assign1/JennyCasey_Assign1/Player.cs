@@ -191,10 +191,133 @@ namespace JennyCasey_Assign1
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
-            /* if (!gear.Contains(newGearID))
+            List<uint> gearlist = gear.ToList();
+
+            bool BothRing = false;
+            bool OneRing = false;
+            bool BothTrinket = false;
+            bool OneTrinket = false;
+
+            
+
+            for (int i = 0; i <= 13; i++)
             {
-                Console.Write("your gear id does match any in the system");
-            }*/
+                if (newGearID == gear[i])
+                {
+                    //thow exception saying the gear is already equipped
+                    throw new Exception("Player has this gear equipped");
+                }
+
+            }
+
+            if (gear[10] == 0 && gear[11] == 0)
+            {
+                BothRing = true;
+            }
+            else if (gear[10] == 0 || gear[11] == 0)
+            {
+                OneRing = true;
+            }
+
+            if (gear[12] == 0 && gear[13] == 0)
+            {
+                BothTrinket = true;
+            }
+            else if (gear[12] == 0 || gear[13] == 0)
+            {
+                OneTrinket = true;
+            }
+
+            int g = 0;
+            for (uint i = 1337; i < 1347; i++)
+            {
+                if (newGearID == i)
+                {
+                    gearlist.Insert(g, newGearID);
+                    gearlist.RemoveAt(g + 1);
+                }
+                else if (newGearID == 1)
+                {
+                    gearlist.Insert(0, newGearID);
+                    gearlist.RemoveAt(1);
+                }
+                else if (newGearID == 2)
+                {
+                    gearlist.Insert(3, newGearID);
+                    gearlist.RemoveAt(4);
+                }
+                else if (newGearID == 3)
+                {
+                    gearlist.Insert(4, newGearID);
+                    gearlist.RemoveAt(5);
+                }
+                else if (newGearID == 4)
+                {
+                    gearlist.Insert(6, newGearID);
+                    gearlist.RemoveAt(7);
+                }
+                else if (newGearID == 5)
+                {
+                    gearlist.Insert(8, newGearID);
+                    gearlist.RemoveAt(9);
+                }
+                else if (newGearID == 6)
+                {
+                    gearlist.Insert(9, newGearID);
+                    gearlist.RemoveAt(10);
+                }
+                else if (newGearID == 1347 || newGearID == 1348)
+                {
+                    if (BothRing == true)
+                    {
+                        gearlist.Insert(10, newGearID);
+                        gearlist.RemoveAt(11);
+                    }
+                    else if (gearlist[10] == 0 && OneRing == true)
+                    {
+                        
+                    }
+                    else if (gearlist[11] == 0 && OneRing == true)
+                    {
+                        gearlist.Insert(11, newGearID);
+                        gearlist.RemoveAt(12);
+                    }
+                    else
+                    {
+                        gearlist.Insert(10, newGearID);
+                        gearlist.RemoveAt(11);
+                    }
+                }
+                else if (newGearID == 1739 || newGearID == 1349 || newGearID == 1350)
+                {
+                    if (BothTrinket == true)
+                    {
+                        gearlist.Insert(12, newGearID);
+                        gearlist.RemoveAt(13);
+                    }
+                    else if (gearlist[12] == 0 && OneTrinket == true )
+                    {
+                        gearlist.Insert(12, newGearID);
+                        gearlist.RemoveAt(13);
+                    }
+                    else if (gearlist[13] == 0 && OneTrinket == true)
+                    {
+                        gearlist.Insert(13, newGearID);
+                        gearlist.RemoveAt(14);
+                    }
+                    else
+                    {
+                        gearlist.Insert(12, newGearID);
+                        gearlist.RemoveAt(13);
+                    }
+                }
+                g++;
+            }
+
+            //put the gear list back into an arrray 
+            gear = gearlist.ToArray();
+
+
 
             //if the players level matches or exceeds the level requirement
             //throw a new exception with an appropriate error message as the arguement 
