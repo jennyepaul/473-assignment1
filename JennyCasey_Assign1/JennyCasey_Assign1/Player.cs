@@ -481,6 +481,55 @@ namespace JennyCasey_Assign1
             }
             return 0;
         }
+        public void EmptyGear(int index)
+        {
+            //following switch structure evaluates if the index value is 0, if so it
+            //will print that that item type is empty
+            switch (index)
+            {
+                case 0:
+                    Console.WriteLine("Helmet: empty");
+                    break;
+                case 1:
+                    Console.WriteLine("Neck: empty");
+                    break;
+                case 2:
+                    Console.WriteLine("Shoulder: empty");
+                    break;
+                case 3:
+                    Console.WriteLine("Back: empty");
+                    break;
+                case 4:
+                    Console.WriteLine("Chest: empty");
+                    break;
+                case 5:
+                    Console.WriteLine("Wrist: empty");
+                    break;
+                case 6:
+                    Console.WriteLine("Gloves: empty");
+                    break;
+                case 7:
+                    Console.WriteLine("Belt: empty");
+                    break;
+                case 8:
+                    Console.WriteLine("Pants: empty");
+                    break;
+                case 9:
+                    Console.WriteLine("Boots: empty");
+                    break;
+                case 10:
+                case 11:
+                    Console.WriteLine("Ring: empty");
+                    break;
+                case 12:
+                case 13:
+                    Console.WriteLine("Trinket: empty");
+                    break;
+                default:
+                    Console.WriteLine("Index out of range");
+                    break;
+            }
+        }
         public override string ToString()
         {
             //checking if the player is part of a guild (guildID > 0)
