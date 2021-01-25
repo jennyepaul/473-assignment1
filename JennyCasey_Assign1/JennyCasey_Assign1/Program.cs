@@ -261,14 +261,14 @@ namespace JennyCasey_Assign1
 
                         foreach (var player in players)
                         {
-                            if (player.Value.Name == playerName0)
+                            if (player.Value.Name == playerName0) //if the player name matches on in the dictonary 
                             {
                                 foreach (var item in items)
                                 {
-                                    if (itemname == item.Value.Name)
+                                    if (itemname == item.Value.Name) //if the item matches one in the dictonary
                                     {
-
-                                        if (player.Value.Level < item.Value.Requirement)
+                                        //check to see if the players level makes them eligable to equip the item
+                                        if (player.Value.Level < item.Value.Requirement) 
                                             throw new Exception("Player doesn't meet Requirement");
                                         else
                                         {

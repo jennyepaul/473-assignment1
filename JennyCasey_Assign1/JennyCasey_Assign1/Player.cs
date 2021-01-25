@@ -199,8 +199,8 @@ namespace JennyCasey_Assign1
             bool OneRing = false;
             bool BothTrinket = false;
             bool OneTrinket = false;
-            bool AlternateSlot = true;
-
+            bool AlternateSlot = false;
+            
             
             //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
@@ -260,7 +260,7 @@ namespace JennyCasey_Assign1
                     gearlist.Insert(5, newGearID);
                     gearlist.RemoveAt(6);
                     break;
-                case 1343:
+                case 1343: case 4:
                     gearlist.Insert(6, newGearID);
                     gearlist.RemoveAt(7);
                     break;
@@ -268,15 +268,15 @@ namespace JennyCasey_Assign1
                     gearlist.Insert(7, newGearID);
                     gearlist.RemoveAt(8);
                     break;
-                case 1345:
+                case 1345: case 5:
                     gearlist.Insert(8, newGearID);
                     gearlist.RemoveAt(9);
                     break;
-                case 1346:
+                case 1346: case 6:
                     gearlist.Insert(9, newGearID);
                     gearlist.RemoveAt(10);
                     break;
-                case 1347: case 1348:
+                case 1347: case 1348: //Ring Slots
                     if (BothRing == true)
                     {
                         gearlist.Insert(10, newGearID);
@@ -292,9 +292,9 @@ namespace JennyCasey_Assign1
                         gearlist.Insert(11, newGearID);
                         gearlist.RemoveAt(12);
                     }    
-                    else
+                    else //if both slots are not empty 
                     {
-                        AlternateSlot = !AlternateSlot;
+                        AlternateSlot = !AlternateSlot; //alternate the slot each time 
                         if (AlternateSlot == false)
                         {
                             gearlist.Insert(10, newGearID);
@@ -307,7 +307,7 @@ namespace JennyCasey_Assign1
                         }
                     }
                     break;
-                case 1739: case 1349: case 1350:
+                case 1739: case 1349: case 1350: //Trinket Slots
                     if (BothTrinket == true)
                     {
                         gearlist.Insert(12, newGearID);
@@ -323,9 +323,9 @@ namespace JennyCasey_Assign1
                         gearlist.Insert(13, newGearID);
                         gearlist.RemoveAt(14);
                     }
-                    else
-                    {                       
-                        AlternateSlot = !AlternateSlot;
+                    else //if both slots are empty
+                    {
+                        AlternateSlot = !AlternateSlot; //alternate the slots each time
                         if (AlternateSlot == false)
                         {
                             gearlist.Insert(12, newGearID);
