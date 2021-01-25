@@ -225,6 +225,8 @@ namespace JennyCasey_Assign1
                             {
                                 playerFound = true;
                                 players[player.Key].GuildID = 0;
+                                Console.WriteLine("{0} has left guild!", playerName2);
+
                             }
                         }
                         if(playerFound == false)
@@ -343,7 +345,16 @@ namespace JennyCasey_Assign1
                         break;
                     case "11": case "T":
                         //create SortedSet, fill it with the name of items, then print out
-                        //the sorted names                        
+                        //the sorted names
+                        SortedSet<string> sortedItems = new SortedSet<string>();
+                        foreach (var nameOfItem in items)
+                        {
+                            sortedItems.Add(nameOfItem.Value.Name);
+                        }
+                        foreach (var i in sortedItems)
+                        {
+                            Console.WriteLine(i);
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid choice");

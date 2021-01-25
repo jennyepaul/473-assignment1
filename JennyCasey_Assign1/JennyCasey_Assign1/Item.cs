@@ -181,7 +181,7 @@ namespace JennyCasey_Assign1
             }
             //else it isn't null so let's compare and sort by name
             else
-                return 0;
+                return this.Name.CompareTo(alpha);
         }
 
         //overridden ToString() method
