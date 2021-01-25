@@ -7,6 +7,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace JennyCasey_Assign1
 {
@@ -163,10 +164,12 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
+
                         foreach (var player in players)
                         {
                             Console.WriteLine("{0}", player.Value);
                         }
+
                         break;
                     case "2":
                         printGuilds();
