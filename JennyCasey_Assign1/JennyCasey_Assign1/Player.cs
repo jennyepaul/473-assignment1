@@ -209,7 +209,13 @@ namespace JennyCasey_Assign1
             //determine if this is a valid piece of gear at all
             List<uint> gearlist = gear.ToList();
 
+            bool BothRing = false;
+            bool OneRing = false;
+            bool BothTrinket = false;
+            bool OneTrinket = false;
+
             
+
             for (int i = 0; i <= 13; i++)
             {
                 if (newGearID == gear[i])
@@ -219,7 +225,25 @@ namespace JennyCasey_Assign1
                 }
 
             }
-           
+
+            if (gear[10] == 0 && gear[11] == 0)
+            {
+                BothRing = true;
+            }
+            else if (gear[10] == 0 || gear[11] == 0)
+            {
+                OneRing = true;
+            }
+
+            if (gear[12] == 0 && gear[13] == 0)
+            {
+                BothTrinket = true;
+            }
+            else if (gear[12] == 0 || gear[13] == 0)
+            {
+                OneTrinket = true;
+            }
+
             int g = 0;
             for (uint i = 1337; i < 1347; i++)
             {
@@ -260,17 +284,16 @@ namespace JennyCasey_Assign1
                 }
                 else if (newGearID == 1347 || newGearID == 1348)
                 {
-                    if (gearlist[10] == 0 && gearlist[11] == 0)
+                    if (BothRing == true)
                     {
                         gearlist.Insert(10, newGearID);
                         gearlist.RemoveAt(11);
                     }
-                    else if (gearlist[10] == 0)
+                    else if (gearlist[10] == 0 && OneRing == true)
                     {
-                        gearlist.Insert(10, newGearID);
-                        gearlist.RemoveAt(11);
+                        
                     }
-                    else if (gearlist[11] == 0)
+                    else if (gearlist[11] == 0 && OneRing == true)
                     {
                         gearlist.Insert(11, newGearID);
                         gearlist.RemoveAt(12);
@@ -283,17 +306,17 @@ namespace JennyCasey_Assign1
                 }
                 else if (newGearID == 1739 || newGearID == 1349 || newGearID == 1350)
                 {
-                    if (gearlist[12] == 0 && gearlist[13] == 0)
+                    if (BothTrinket == true)
                     {
                         gearlist.Insert(12, newGearID);
                         gearlist.RemoveAt(13);
                     }
-                    else if (gearlist[12] == 0)
+                    else if (gearlist[12] == 0 && OneTrinket == true )
                     {
                         gearlist.Insert(12, newGearID);
                         gearlist.RemoveAt(13);
                     }
-                    else if (gearlist[13] == 0)
+                    else if (gearlist[13] == 0 && OneTrinket == true)
                     {
                         gearlist.Insert(13, newGearID);
                         gearlist.RemoveAt(14);

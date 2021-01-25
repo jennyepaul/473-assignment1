@@ -253,7 +253,6 @@ namespace JennyCasey_Assign1
                         Console.WriteLine("Enter the item name they will equip: ");
                         string itemname = Console.ReadLine();
 
-
                         foreach (var player in players)
                         {
                             if (player.Value.Name == playerName)
