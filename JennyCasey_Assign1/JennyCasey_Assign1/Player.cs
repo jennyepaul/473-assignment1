@@ -207,21 +207,57 @@ namespace JennyCasey_Assign1
 
         public void UnequipGear(int gearSlot)
         {
-            uint gearToUnequip = gear[gearSlot];
             List<uint> tempGear = new List<uint>(gear);
+            int index;
+
+            //if the gearSlot is less than 10, then the index in the 
+            //gear array will be the same
+            if (gearSlot <= 9)
+            {
+                gearSlot += 0;
+            }
+            //if the gearSlot is 10, the indexes for rings are either 10 or 11
+            else if(gearSlot == 10)
+            {
+                if(gear[10] != 0)
+                {
+                    gearSlot = 10;
+                }
+                else
+                {
+                    gearSlot = 11;
+                }
+            }
+            //if the gearSlot is 11, the indexes for rings are either 11 or 12
+            else if (gearSlot == 11)
+            {
+                if (gear[12] != 0)
+                {
+                    gearSlot = 12;
+                }
+                else
+                {
+                    gearSlot = 13;
+                }
+            }
+
+            index = gearSlot;
+            uint gearToUnequip = gear[index];
 
             //if the gear at that index is not empty (0) add it to the inventory
             if (gearToUnequip != 0)
             {
-                //if the inventory is not full, we can add to it
-                if(Inventory.Count <= MAX_INVENTORY_SIZE)
+            //if the inventory is not full, we can add to it
+                if (Inventory.Count <= MAX_INVENTORY_SIZE)
                 {
-                    //inserting the gear into the index in the inventory
-                    Inventory.Add(gear[gearSlot]);
+
+                    //inserting the gear in the inventory
+                    Inventory.Add(gear[index]);
 
                     //removing the gear from the player
                     tempGear.Remove(gearToUnequip);
-
+                    tempGear.Insert(index, 0);
+                    //tempGear.
                     //converting back to an array
                     gear = tempGear.ToArray();
                 }
