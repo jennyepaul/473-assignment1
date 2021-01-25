@@ -348,7 +348,6 @@ namespace JennyCasey_Assign1
             //put the gear list back into an arrray 
             gear = gearlist.ToArray();
 
-
         }
 
         public void UnequipGear(int gearSlot)
