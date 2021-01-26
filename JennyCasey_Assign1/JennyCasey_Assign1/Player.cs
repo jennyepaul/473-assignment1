@@ -193,12 +193,6 @@ namespace JennyCasey_Assign1
                 inventory = value;
             }
         }
-
-        public bool Switch(bool value)
-        {
-            return !value;
-        }
-
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
