@@ -7,8 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace JennyCasey_Assign1
@@ -31,7 +29,10 @@ namespace JennyCasey_Assign1
         private uint[] gear;
         private List<uint> inventory;
 
-        //bool AlternateSlot = false;
+        //boolean attributes to tell where to equip gear next
+        //if both gear slots occupied
+        private bool isRingLowerSlotNext = true;
+        private bool isTrinketLowerSlotNext = true;
 
         // default constructor 
         public Player()
@@ -210,7 +211,7 @@ namespace JennyCasey_Assign1
             bool AlternateSlot = false;
            // Alternate AlternateSlot;
 
-
+            /*
             //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
             {
@@ -221,7 +222,7 @@ namespace JennyCasey_Assign1
                 }
 
             }
-
+            */
             //if both ring slot are empty 
             if (gear[10] == 0 && gear[11] == 0)
             {
@@ -300,18 +301,32 @@ namespace JennyCasey_Assign1
                     {
                         gearlist.Insert(11, newGearID);
                         gearlist.RemoveAt(12);
-                    }    
-                    else //if both slots are not empty 
-                    {                    
-                        if (AlternateSlot == false)
+                    } 
+                    //both slot are full
+                    else  
+                    {
+                        //if lower slot flag is set to true then we need to fill that spot
+                        if (isRingLowerSlotNext == true)
                         {
+                            //insert it into the lower slot, then add that piece of gear to inventory
                             gearlist.Insert(10, newGearID);
-                            gearlist.RemoveAt(11); 
+                            inventory.Add(gearlist[11]);
+                            gearlist.RemoveAt(11);
+
+                            //set lower slot to false s we equip the high slot next
+                            isRingLowerSlotNext = false;
+
                         }
-                        else
+                        else if (!isRingLowerSlotNext)
                         {
+                            //insert it into the higher slot, then add that piece of gear to inventory
                             gearlist.Insert(11, newGearID);
+                            inventory.Add(gearlist[12]);
                             gearlist.RemoveAt(12);
+
+                            //set lower slot next to true so we equip in low slot next
+
+                            isRingLowerSlotNext = true;
                         }
                     }
                     break;
@@ -331,17 +346,33 @@ namespace JennyCasey_Assign1
                         gearlist.Insert(13, newGearID);
                         gearlist.RemoveAt(14);
                     }
-                    else //if both slots are empty
-                    {                    
-                        if (AlternateSlot == false)
+                    //both slots are full
+                    else 
+                    {
+                        if (isTrinketLowerSlotNext == true)
                         {
+                            
                             gearlist.Insert(12, newGearID);
+                            Console.WriteLine("Adding {0} to inventory", gearlist[13]);
+
+                            inventory.Add(gearlist[13]);
+                            Console.WriteLine("Removing {0} from gear list", gearlist[13]);
+
                             gearlist.RemoveAt(13);
+
+                            //set lower slot to false to equip higher slot next
+                            isTrinketLowerSlotNext = false;
                         }
-                        else
+                        else if(!isTrinketLowerSlotNext)
                         {
                             gearlist.Insert(13, newGearID);
+                            Console.WriteLine("Adding {0} to inventory",gearlist[14]);
+                            inventory.Add(gearlist[14]);
+                            Console.WriteLine("Removing {0} from gear list", gearlist[14]);
                             gearlist.RemoveAt(14);
+
+                            //set lower slot next to true so we equip in low slot next
+                            isTrinketLowerSlotNext = true;
                         }
                     }
                     break;
