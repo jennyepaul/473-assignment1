@@ -11,7 +11,7 @@ using System.IO;
 
 namespace JennyCasey_Assign1
 {
-    public class Player
+    public class Player : IComparable
     {
         //constants for program
         private static uint MAX_LEVEL = 60;
@@ -629,23 +629,7 @@ namespace JennyCasey_Assign1
                     break;
             }
         }
-        
-        public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
-        {
-            SortedSet<Player> Sortedplayer = new SortedSet<Player>();
-
-            foreach(var player in dictionary)
-            {
-                Sortedplayer.Add(player.Value);
-            }
-
-            foreach(var player in Sortedplayer)
-            {
-                Console.WriteLine(player);
-            }
-
-        }
-
+       
         public void PrintGearListForPlayer(Dictionary<uint, Player> dictionary1, Dictionary<uint, Item> dictionary2)
         {
             Console.Write("Enter the player name: ");
@@ -813,32 +797,29 @@ namespace JennyCasey_Assign1
                 }
             }
         }
-        public int CompareTo(Player alpha)
+        public int CompareTo(Object alpha)
         {
-            Player alphatwo = alpha as Player;
+            //checking for null values
+            if (alpha == null) throw new ArgumentNullException();
 
-            if (alpha == null)
-            {
-                throw new ArgumentNullException();
-            }
+            //typecasting to an Item
+            Player playerToCompare = alpha as Player;
 
-            if (alphatwo != null)
-                return alpha.name.CompareTo(alphatwo.name);
+            // Protect against a failed typecasting
+            if (playerToCompare != null)
+                return name.CompareTo(playerToCompare.name);
             else
-                throw new ArgumentException("CompareTo arguement is not a Player");
-                
+                throw new ArgumentException("[Player]:CompareTo argument is not an Player");
         }
 
         public void SortPlayerNames(Dictionary<uint, Player> dictionary)
         {
             //player sorted set
-            SortedSet<string> PlayerSortedSet = new SortedSet<string>();
-
+            SortedSet<Player>PlayerSortedSet = new SortedSet<Player>();
             foreach (var i in dictionary)
             {
-                PlayerSortedSet.Add(i.Value.Name);
+                PlayerSortedSet.Add(i.Value);
             }
-
             foreach (var i in PlayerSortedSet)
             {
                 Console.WriteLine(i);

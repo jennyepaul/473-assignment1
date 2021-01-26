@@ -224,7 +224,6 @@ namespace JennyCasey_Assign1
             {
                 sortedItems.Add(nameOfItem.Value);
             }
-            Console.WriteLine("\nSorted Items:");
             foreach (var i in sortedItems)
             {
                 Console.WriteLine(i);

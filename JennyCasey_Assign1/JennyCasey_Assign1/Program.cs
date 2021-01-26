@@ -72,7 +72,7 @@ namespace JennyCasey_Assign1
                 switch (choice)
                 {
                     case "1":
-                        player1.PrintAllPlayers(players);
+                        player1.SortPlayerNames(players);
                         break;
                     case "2":
                         foreach(var i in guildTable)
