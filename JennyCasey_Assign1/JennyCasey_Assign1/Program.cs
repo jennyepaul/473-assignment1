@@ -1,7 +1,7 @@
 ﻿/* CSCI473 
  * Assignment 1
  * TEAM: JennyCasey
- * Contributors: Jennifer Paul (z1878099) and Casey McDermott (ID HERE)
+ * Contributors: Jennifer Paul (z1878099) and Casey McDermott (z1878096)
  */
 using System;
 using System.Text;
