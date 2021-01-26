@@ -208,10 +208,8 @@ namespace JennyCasey_Assign1
             bool OneRing = false;
             bool BothTrinket = false;
             bool OneTrinket = false;
-            bool AlternateSlot = false;
-           // Alternate AlternateSlot;
 
-            /*
+            
             //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
             {
@@ -222,7 +220,7 @@ namespace JennyCasey_Assign1
                 }
 
             }
-            */
+            
             //if both ring slot are empty 
             if (gear[10] == 0 && gear[11] == 0)
             {
