@@ -823,7 +823,7 @@ namespace JennyCasey_Assign1
             }
 
             if (alphatwo != null)
-                return this.name.CompareTo(alphatwo.name);
+                return alpha.name.CompareTo(alphatwo.name);
             else
                 throw new ArgumentException("CompareTo arguement is not a Player");
                 
