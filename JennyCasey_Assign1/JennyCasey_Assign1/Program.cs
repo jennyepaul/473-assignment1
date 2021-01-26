@@ -1,7 +1,14 @@
 ﻿/* CSCI473 
  * Assignment 1
+ * DATE: 1/26/2020
  * TEAM: JennyCasey
  * Contributors: Jennifer Paul (z1878099) and Casey McDermott (z1878096)
+ * PURPOSE: The purpose of this assignment is to emulate a game. The program will read in 
+ *          input files of equipment.txt, players.txt, and guilds.txt. From there, there 
+ *          will be 3 dictionaries made, one for the items in equipment.txt, one for the players,
+ *          and one for the guilds. Then the user will be presented with a menu where they will make
+ *          choices such as listing all the players, having a player join/leave a guild, see the
+ *          equipment for a specific players,etc. 
  */
 using System;
 using System.Text;
@@ -43,7 +50,7 @@ namespace JennyCasey_Assign1
 
             //build the 3 tables
             var guildTable = player1.BuildGuildTable();
-            var items = item1.BuildItemTable();
+            var items = item1.BuildItemDictionary();
             var players = player1.BuildPlayerTable();
 
             //print out the menu and the options to the user
