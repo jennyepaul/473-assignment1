@@ -26,6 +26,12 @@ namespace JennyCasey_Assign1
         private uint guildId;
         private uint[] gear;
         private List<uint> inventory;
+
+        //boolean attributes to tell where to equip gear next
+        //if both gear slots occupied
+        private bool isRingLowerSlotNext = true;
+        private bool isTrinketLowerSlotNext = true;
+
         // default constructor 
         public Player()
         {
@@ -243,11 +249,10 @@ namespace JennyCasey_Assign1
             //determine if this is a valid piece of gear at all
             List<uint> gearlist = gear.ToList();
 
-            bool BothRing = false;
-            bool OneRing = false;
-            bool BothTrinket = false;
-            bool OneTrinket = false;
-            bool AlternateSlot = false;
+            bool isBothRingsEmpty = false;
+            bool isOneRingEmpty = false;
+            bool isBothTrinketsEmpty = false;
+            bool isOneTrinketEmpty = false;
                         
             //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
@@ -258,25 +263,23 @@ namespace JennyCasey_Assign1
                     throw new Exception("Player has this gear equipped");
                 }
             }
-
             //if both ring slot are empty 
             if (gear[10] == 0 && gear[11] == 0)
             {
-                BothRing = true;
+                isBothRingsEmpty = true;
             }
             else if (gear[10] == 0 || gear[11] == 0) //if one of the ring slots is empty 
             {
-                OneRing = true;
+                isOneRingEmpty = true;
             }
-
             //if both trinket slots are empty 
             if (gear[12] == 0 && gear[13] == 0) 
             {
-                BothTrinket = true;
+                isBothTrinketsEmpty = true;
             }
             else if (gear[12] == 0 || gear[13] == 0) //if one of the trinket slots are empty
             {
-                OneTrinket = true;
+                isOneTrinketEmpty = true;
             }
 
             //use the gear Id to find which slot in the gear array it goes
@@ -323,64 +326,91 @@ namespace JennyCasey_Assign1
                     gearlist.RemoveAt(10);
                     break;
                 case 1347: case 1348: //Ring Slots
-                    if (BothRing == true)
+                    if (isBothRingsEmpty == true)
                     {
                         gearlist.Insert(10, newGearID);
                         gearlist.RemoveAt(11);
                     }
-                    else if (gearlist[10] == 0 && OneRing == true)
+                    else if (gearlist[10] == 0 && isOneRingEmpty == true)
                     {
                         gearlist.Insert(11, newGearID);
                         gearlist.RemoveAt(12);
                     }
-                    else if (gearlist[11] == 0 && OneRing == true)
+                    else if (gearlist[11] == 0 && isOneRingEmpty == true)
                     {
                         gearlist.Insert(11, newGearID);
                         gearlist.RemoveAt(12);
-                    }    
-                    else //if both slots are not empty 
-                    {
-                        AlternateSlot = !AlternateSlot; //alternate the slot each time 
-                        if (AlternateSlot == false)
+                    }   
+                    //if both slots are full
+                    else
+                    { 
+                        //if lower slot flag is set to true then we need to fill that spot
+                        if (isRingLowerSlotNext == true)
                         {
+                            //insert it into the lower slot, then add that piece of gear to inventory
                             gearlist.Insert(10, newGearID);
+                            inventory.Add(gearlist[11]);
                             gearlist.RemoveAt(11);
+
+                            //set lower slot to false s we equip the high slot next
+                            isRingLowerSlotNext = false;
                         }
-                        else
+                        else if (!isRingLowerSlotNext)
                         {
+                            //insert it into the higher slot, then add that piece of gear to inventory
                             gearlist.Insert(11, newGearID);
+                            inventory.Add(gearlist[12]);
                             gearlist.RemoveAt(12);
+
+                            //set lower slot next to true so we equip in low slot next
+
+                            isRingLowerSlotNext = true;
                         }
+
                     }
                     break;
                 case 1739: case 1349: case 1350: //Trinket Slots
-                    if (BothTrinket == true)
+                    if (isBothTrinketsEmpty == true)
                     {
                         gearlist.Insert(12, newGearID);
                         gearlist.RemoveAt(13);
                     }
-                    else if (gearlist[12] == 0 && OneTrinket == true)
+                    else if (gearlist[12] == 0 && isOneTrinketEmpty == true)
                     {
                         gearlist.Insert(12, newGearID);
                         gearlist.RemoveAt(13);
                     }
-                    else if (gearlist[13] == 0 && OneTrinket == true)
+                    else if (gearlist[13] == 0 && isOneTrinketEmpty == true)
                     {
                         gearlist.Insert(13, newGearID);
                         gearlist.RemoveAt(14);
                     }
-                    else //if both slots are empty
-                    {
-                        AlternateSlot = !AlternateSlot; //alternate the slots each time
-                        if (AlternateSlot == false)
-                        {
+                    //if both slots are full
+                    else 
+                    {                    
+                        if (isTrinketLowerSlotNext == true)
+                        {                           
                             gearlist.Insert(12, newGearID);
+                            Console.WriteLine("Adding {0} to inventory", gearlist[13]);
+
+                            inventory.Add(gearlist[13]);
+                            Console.WriteLine("Removing {0} from gear list", gearlist[13]);
+
                             gearlist.RemoveAt(13);
+
+                            //set lower slot to false to equip higher slot next
+                            isTrinketLowerSlotNext = false;
                         }
-                        else
+                        else if(!isTrinketLowerSlotNext)
                         {
                             gearlist.Insert(13, newGearID);
+                            Console.WriteLine("Adding {0} to inventory",gearlist[14]);
+                            inventory.Add(gearlist[14]);
+                            Console.WriteLine("Removing {0} from gear list", gearlist[14]);
                             gearlist.RemoveAt(14);
+
+                            //set lower slot next to true so we equip in low slot next
+                            isTrinketLowerSlotNext = true;
                         }
                     }
                     break;
@@ -391,7 +421,6 @@ namespace JennyCasey_Assign1
             //put the gear list back into an arrray 
             gear = gearlist.ToArray();
         }
-
         public void UnequipGear(int gearSlot)
         {
             List<uint> tempGear = new List<uint>(gear);
@@ -437,16 +466,16 @@ namespace JennyCasey_Assign1
             //if the inventory is not full, we can add to it
                 if (Inventory.Count <= MAX_INVENTORY_SIZE)
                 {
-
                     //inserting the gear in the inventory
                     Inventory.Add(gear[index]);
 
                     //removing the gear from the player
                     tempGear.Remove(gearToUnequip);
                     tempGear.Insert(index, 0);
-                    //tempGear.
+
                     //converting back to an array
                     gear = tempGear.ToArray();
+                    Console.WriteLine("Successfully unequipped gear!");
                 }
                 else
                 {
