@@ -7,16 +7,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace JennyCasey_Assign1
 {
     public class Player
     {
-        
-
         //constants for program
         private static uint MAX_LEVEL = 60;
         private static uint GEAR_SLOTS = 14;
