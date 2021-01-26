@@ -632,10 +632,18 @@ namespace JennyCasey_Assign1
         //NEED TO FIX THIS AND GET IT IN ORDER! 
         public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
         {
+            SortedSet<string> Sortedplayer = new SortedSet<string>();
+
             foreach (var player in dictionary)
             {
-                Console.WriteLine(player.Value);
-            }    
+                Sortedplayer.Add(player.Value.Name);
+            }
+
+            foreach(var player in Sortedplayer)
+            {
+                Console.WriteLine(player);
+            }
+
         }
 
         public void PrintGearListForPlayer(Dictionary<uint, Player> dictionary1, Dictionary<uint, Item> dictionary2)
