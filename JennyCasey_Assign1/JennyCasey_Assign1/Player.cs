@@ -632,11 +632,11 @@ namespace JennyCasey_Assign1
         //NEED TO FIX THIS AND GET IT IN ORDER! 
         public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
         {
-            SortedSet<string> Sortedplayer = new SortedSet<string>();
+            SortedSet<Player> Sortedplayer = new SortedSet<Player>();
 
             foreach (var player in dictionary)
             {
-                Sortedplayer.Add(player.Value.Name);
+                Sortedplayer.Add(player.Value);
             }
 
             foreach(var player in Sortedplayer)
