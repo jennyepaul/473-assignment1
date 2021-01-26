@@ -631,10 +631,10 @@ namespace JennyCasey_Assign1
         }
         public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
         {
-            foreach (var player in dictionary)
+            foreach (var player in dictionary.OrderBy(player => player.Value.Name))
             {
-                Console.WriteLine("{0}", player.Value);
-            }
+                Console.WriteLine(player);
+            }    
         }
 
         public void PrintGearListForPlayer(Dictionary<uint, Player> dictionary1, Dictionary<uint, Item> dictionary2)
