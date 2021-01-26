@@ -629,35 +629,20 @@ namespace JennyCasey_Assign1
                     break;
             }
         }
-        //NEED TO FIX THIS AND GET IT IN ORDER! 
+        
         public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
         {
-            //SortedSet<Player> Sortedplayer = new SortedSet<Player>();
+            SortedSet<Player> Sortedplayer = new SortedSet<Player>();
 
-
-            /*foreach (var player in dictionary)
+            foreach(var player in dictionary)
             {
-                //if the current name is less than the next name 
-                if (player.Value.Name(1).CompareTo(player.Value.Name(2)) < 0)
-                {
-                    //then the value of the first name goes before value of second name 
-                    Sortedplayer.Add(player.Value(1);
-                    Sortedplayer.Add(player.Value(2));
-                } else if (player.Value.Name(1).CompareTo(player.Value.Name(2)) > 0)
-                {
-                    Sortedplayer.Add(player.Value(2);
-                    Sortedplayer.Add(player.Value(1));
-                }
-            }*/
-            var Sortedplayer = dictionary.ToList();
-            Sortedplayer.Sort((x, y) => x.Key.CompareTo(y.Key));
-            foreach (var player in Sortedplayer)
-                Console.WriteLine(player.Value);
+                Sortedplayer.Add(player.Value);
+            }
 
-            /*foreach(var player in Sortedplayer)
+            foreach(var player in Sortedplayer)
             {
                 Console.WriteLine(player);
-            }*/
+            }
 
         }
 
@@ -830,14 +815,18 @@ namespace JennyCasey_Assign1
         }
         public int CompareTo(Player alpha)
         {
-            int result = Name.CompareTo(alpha.Name);
+            Player alphatwo = alpha as Player;
 
             if (alpha == null)
             {
                 throw new ArgumentNullException();
             }
+
+            if (alphatwo != null)
+                return this.name.CompareTo(alphatwo.name);
             else
-                return result;
+                throw new ArgumentException("CompareTo arguement is not a Player");
+                
         }
 
         public void SortPlayerNames(Dictionary<uint, Player> dictionary)
