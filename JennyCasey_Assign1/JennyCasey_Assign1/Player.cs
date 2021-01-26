@@ -11,6 +11,48 @@ using System.IO;
 
 namespace JennyCasey_Assign1
 {
+    /**************************************************************************************************************************
+     * Class - Player
+     * 
+     * The player class is used store the information of each individual player. 
+     * 
+     * - There are 3 constants that store the max level, the total gear slots, and the max inventory size of 
+     * each player.
+     * - There are 8 private attributes that stores information about each individual players id, name, race, 
+     * level, experiance, guild ID, gear, and the inventory. 
+     * - The player class has an IComparable interface in order to sort the player based on their names.
+     * - Player Class Methods: 
+     *             BuildPlayerTable => This method reads from the players.txt file and creates a player
+     *                                 dictionary. 
+     *             EquipGear => This method corresponds with option '7', and places the item the player wants
+     *                              to equip into the players gear list.
+     *             UnequipGear => This method corresponds with option '8' and removes the item the player wants 
+     *                              to remove from the players gear list. 
+     *             LevelUp => This method corresponds with option '9', and levels up the player by using the 
+     *                              amount of experiance points the player currently has. 
+     *             FindGuildName => This method splits the records from the guild.txt file and stores them in a 
+     *                              dictionary so its easy to sear via the key.
+     *             FindGuildID => This method takes the name of guild and finds the corresponding ID number by 
+     *                              searching the guild dictionary.
+     *             EmptyGear => This method is called in the PrintGearListForPlayer and prints "empty" where the
+     *                                  index is zero in the gear array.
+     *             PrintGearListForPlayer => This method corresponds with option '4' and prints the gear that are 
+     *                                       equipped for a specific player, printing empty where there is no 
+     *                                       gear equipped.
+     *             PlayerLeaveGuild => This method corresponds with option '5' and removes the player from the guild
+     *                                 they are associated with (if they are associated with one).
+     *             PlayerJoinGuild => This method corresponds with option '6' and joins the player to the guild that 
+     *                                 the player has chosen.
+     *             PlayerEquipGear => This method corresponds with option '7' and asks for the players name and their 
+     *                                item and checks to see if they player and item match up to one stored in the 
+     *                                dictionaries and then calls EquipGear.
+     *             PlayerUnequipGear => This method corresponds with option '8', and asks for the players name and 
+     *                                  there slot number they would like to remove their gear from and then checks to 
+     *                                  make sure the player is in the dictionary before claling UnequipGear.
+     *             AwardExperiance => This method corresponds with option '9' and asks for players name and the amount 
+     *             SortPlayerNames => This method corresponds with option '11' which prints out the names of the players
+     *                                in order alphabetically. 
+     * ************************************************************************************************************************/
     public class Player : IComparable
     {
         //constants for program
