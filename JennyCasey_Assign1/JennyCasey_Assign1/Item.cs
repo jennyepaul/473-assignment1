@@ -10,21 +10,40 @@ using System.IO;
 
 namespace JennyCasey_Assign1
 {
-    
-    public class Item : IComparable<Item>
+    /************************************************************************************************************
+     * Class - Item
+     * 
+     * The purpose of this class is to hold all information about the items that
+     * the player can have equipped/unequipped.
+     * 
+     *  -There are 3 constants that hold the maximum item level, primary, and stamina for each item.
+     *  -There are also 8 private attributes that the class uses to hold various information about
+     *  each item, like: the id, name, type (whether it is a helmet, neck, belt, etc.), level
+     *  primary, stamina, level requirement to equip this piece of gear, and flavor.
+     *  - The Item class also makes use of the IComparable interface which will be used to 
+     *   sort the items based on their names
+     *  - This class also has a few methods:
+     *      SortItemNames -> this corresponds to menu option "T", where it will print out the sorted items
+     *      and their corresponding information
+     *      PrintAllItems -> this method corresponds to the menu option "3", it will print out all the available
+     *      gear
+     *      BuildItemDictionary -> this method will read the equipment.txt input file and then build the 
+     *      dictionary 
+     *      
+     *************************************************************************************************************/
+    public class Item : IComparable
     {
         //constant to be used
         private static uint MAX_ILVL = 360;
         private static uint MAX_PRIMARY = 200;
         private static uint MAX_STAMINA = 275;
-        //private static uint MAX_LEVEL = 60;
 
         //private attributes of Item class
         private readonly uint _id;   
         private string name;         
         private ItemType type;       
         private uint ilvl;           
-        private uint primary;           //stat on item, benefit it gives
+        private uint primary;           
         private uint stamina;        
         private uint requirement;    
         private string flavor;       
@@ -57,53 +76,31 @@ namespace JennyCasey_Assign1
         public uint ID
         {
             //only a getter, since only readonly
-            get
-            {
-                return _id;
-            }
+            get { return _id; }
             set {   }
         }
 
         public string Name
         {
             //free read/write access so both a setter and getter
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
+            get{  return name; }
+            set { name = value; }
         }
 
         public ItemType Type
         {
             //free read/write access so both getter and setter
             get
-            {
-                //might need subscript here to get specific type?
-                return type;
-            }
+            { return type;}
             set
-            {
-                
-                //if(value > 0 && value < 12)
-                //{
-                    type = value;
-
-               // }
-
-            }
+            { type = value; }
         }
 
         public uint Ilvl
         {
             //free read/write access so getter and setters
             get
-            {
-                return ilvl;
-            }
+            { return ilvl;}
             set
             {
                 if(value > 0 && value < MAX_ILVL)
@@ -117,9 +114,7 @@ namespace JennyCasey_Assign1
         {
             //read and write access so getter and setter
             get
-            {
-                return primary;
-            }
+            { return primary; }
             set
             {
                 if(value > 0 && value < MAX_PRIMARY)
@@ -133,9 +128,7 @@ namespace JennyCasey_Assign1
         {
             //read and write access so getter and setter
             get
-            {
-                return stamina;
-            }
+            { return stamina;}
             set
             {
                 if(value > 0 && value < MAX_STAMINA)
@@ -149,29 +142,21 @@ namespace JennyCasey_Assign1
         {
             //read and write access, so getter and setter
             get
-            {
-                return requirement;
-            }
+            { return requirement; }
             set
-            {
-                requirement = value;
-            }
+            { requirement = value; }
         }
 
         public string Flavor
         {
             //read and write access, so getter and setter
             get
-            {
-                return flavor;
-            }
+            { return flavor; }
             set
-            {
-                flavor = value;
-            }
+            { flavor = value; }
         }
 
-        public Dictionary<uint, Item> BuildItemTable()
+        public Dictionary<uint, Item> BuildItemDictionary()
         {
             string itemRecord;
             var items = new Dictionary<uint, Item>();
@@ -206,7 +191,6 @@ namespace JennyCasey_Assign1
                     items.Add(parsedID, newItem);
                 }
             }
-
             return items;
         }
         public void PrintAllItems(Dictionary<uint, Item> dictionary)
@@ -215,29 +199,32 @@ namespace JennyCasey_Assign1
             foreach (var item in dictionary)
                 Console.WriteLine("{0}", item.Value);
         }
-
         //sort by name for items
-        public int CompareTo(Item alpha)
+        public int CompareTo(Object alpha)
         {
-            //if null, we can't compare so throw an exception
-            if (alpha == null)
-            {
-                throw new ArgumentNullException();
-            }
-            //else it isn't null so let's compare and sort by name
+            //checking for null values
+            if (alpha == null) throw new ArgumentNullException(); 
+
+            //typecasting to an Item
+            Item itemToCompare = alpha as Item;
+
+            // Protect against a failed typecasting
+            if (itemToCompare != null) 
+                return name.CompareTo(itemToCompare.name);
             else
-                return this.Name.CompareTo(alpha);
+                throw new ArgumentException("[Item]:CompareTo argument is not an Item");          
         }
 
         public void SortItemNames (Dictionary<uint, Item> dictionary)
         {
             //create SortedSet, fill it with the name of items, then print out
             //the sorted names
-            SortedSet<string> sortedItems = new SortedSet<string>();
+            SortedSet<Item> sortedItems = new SortedSet<Item>();
             foreach (var nameOfItem in dictionary)
             {
-                sortedItems.Add(nameOfItem.Value.Name);
+                sortedItems.Add(nameOfItem.Value);
             }
+            Console.WriteLine("\nSorted Items:");
             foreach (var i in sortedItems)
             {
                 Console.WriteLine(i);
