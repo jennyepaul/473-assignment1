@@ -880,8 +880,17 @@ namespace JennyCasey_Assign1
             //else they are not part of a guild, so do not print the guild name
             else
             {
+                //the original 
                 return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level);
 
+                //seen examples where you add the "PadRight(25)" to make them align 
+                //return String.Format("Name: {0} Race: {1} Level: {2}", this.name.PadRight(50), this.Race, this.Level);
+
+                //adding the formating into the {} 
+                //return String.Format("Name: {0,-20} {3,-20} {1,5} Level: {2}", this.name, this.Race, this.Level, "Race");
+
+                //just to see if it will format with just random words printing out 
+                //return String.Format("Name: {0,-20} {3,-20} {1,5} Level: {2}", "Zero", "One", "Two", "Three");
             }
         }
     }
