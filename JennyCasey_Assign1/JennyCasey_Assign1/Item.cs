@@ -1,16 +1,17 @@
 ﻿/* CSCI473 
  * Assignment 1
  * TEAM: JennyCasey
- * Contributors: Jennifer Paul (z1878099) and Casey McDermott (ID HERE)
+ * Contributors: Jennifer Paul (z1878099) and Casey McDermott (z1878096)
  */
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace JennyCasey_Assign1
 {
     
-    class Item : IComparable<Item>
+    public class Item : IComparable<Item>
     {
         //constant to be used
         private static uint MAX_ILVL = 360;
@@ -170,6 +171,50 @@ namespace JennyCasey_Assign1
             }
         }
 
+        public Dictionary<uint, Item> BuildItemTable()
+        {
+            string itemRecord;
+            var items = new Dictionary<uint, Item>();
+
+            using (StreamReader inFile = new StreamReader("../../../equipment.txt"))
+            {
+                while ((itemRecord = inFile.ReadLine()) != null)
+                {
+                    //the following are variables to hold the parsed values of the various object attributes
+                    uint parsedID;
+                    uint parsedILVL;
+                    uint parsedPRIM;
+                    uint parsedSTAMINA;
+                    uint parsedREQUIREMENT;
+                    ItemType parsedType;
+
+                    //split the record line from the text file based on tab and store into string array
+                    string[] parameter = itemRecord.Split('\t');
+
+                    //TryParse-ing each string to the proper data type to catch any possible exceptions
+                    uint.TryParse(parameter[0], out parsedID);
+                    Enum.TryParse(parameter[2], out parsedType);
+                    uint.TryParse(parameter[3], out parsedILVL);
+                    uint.TryParse(parameter[4], out parsedPRIM);
+                    uint.TryParse(parameter[5], out parsedSTAMINA);
+                    uint.TryParse(parameter[6], out parsedREQUIREMENT);
+
+                    //constructing new object of the class
+                    Item newItem = new Item(parsedID, parameter[1], parsedType, parsedILVL, parsedPRIM, parsedSTAMINA, parsedREQUIREMENT, parameter[7]);
+
+                    //add the new item to the dictionary
+                    items.Add(parsedID, newItem);
+                }
+            }
+
+            return items;
+        }
+        public void PrintAllItems(Dictionary<uint, Item> dictionary)
+        {
+            //iterate through dictionary and print the key (ID of item) and the value (attributes of item object)
+            foreach (var item in dictionary)
+                Console.WriteLine("{0}", item.Value);
+        }
 
         //sort by name for items
         public int CompareTo(Item alpha)
@@ -182,6 +227,21 @@ namespace JennyCasey_Assign1
             //else it isn't null so let's compare and sort by name
             else
                 return this.Name.CompareTo(alpha);
+        }
+
+        public void SortItemNames (Dictionary<uint, Item> dictionary)
+        {
+            //create SortedSet, fill it with the name of items, then print out
+            //the sorted names
+            SortedSet<string> sortedItems = new SortedSet<string>();
+            foreach (var nameOfItem in dictionary)
+            {
+                sortedItems.Add(nameOfItem.Value.Name);
+            }
+            foreach (var i in sortedItems)
+            {
+                Console.WriteLine(i);
+            }
         }
 
         //overridden ToString() method

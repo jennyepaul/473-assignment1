@@ -7,16 +7,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace JennyCasey_Assign1
 {
     public class Player
     {
-        
-
         //constants for program
         private static uint MAX_LEVEL = 60;
         private static uint GEAR_SLOTS = 14;
@@ -155,8 +151,6 @@ namespace JennyCasey_Assign1
         //gear array with throw exception if out of range
         public uint this[int index]
         {
-            //get => gear[index];
-            //set => gear[index] = value;
             get
             {
                 if(index >= 0 && index <= GEAR_SLOTS)
@@ -189,6 +183,60 @@ namespace JennyCasey_Assign1
                 inventory = value;
             }
         }
+        /*
+         * The following function will build the Player table by reading in the input file
+         * then splitting each record up to assign each value to the correct player attribute
+         * after it will parse the values from string to the correct values and 
+         * pass them into the parameterized constructor
+         */
+        public Dictionary<uint, Player> BuildPlayerTable()
+        {
+            string playerRecord;
+            var players = new Dictionary<uint, Player>();
+
+            using (StreamReader inFile = new StreamReader("../../../players.txt"))
+            {
+                while ((playerRecord = inFile.ReadLine()) != null)
+                {
+                    uint parsed_id;
+                    Race parsed_race;
+                    uint parsed_level;
+                    uint parsed_exp;
+                    uint parsed_guildID;
+                    string[] parameter = playerRecord.Split('\t');
+                    string[] gear;
+                    var list = new List<string>();
+                    list.Add(parameter[6]);   //gear number 1
+                    list.Add(parameter[7]);   //gear number 2
+                    list.Add(parameter[8]);   //gear number 3
+                    list.Add(parameter[9]);   //gear number 4
+                    list.Add(parameter[10]);  //gear number 5
+                    list.Add(parameter[11]);  //gear number 6
+                    list.Add(parameter[12]);  //gear number 7
+                    list.Add(parameter[13]);  //gear number 8
+                    list.Add(parameter[14]);  //gear number 9
+                    list.Add(parameter[15]);  //gear number 10
+                    list.Add(parameter[16]);  //gear number 11
+                    list.Add(parameter[17]);  //gear number 12
+                    list.Add(parameter[18]);  //gear number 13
+                    list.Add(parameter[19]);  //gear number 14
+                    gear = list.ToArray();
+
+                    uint.TryParse(parameter[0], out parsed_id);
+                    Enum.TryParse(parameter[2], out parsed_race);
+                    uint.TryParse(parameter[3], out parsed_level);
+                    uint.TryParse(parameter[4], out parsed_exp);
+                    uint.TryParse(parameter[5], out parsed_guildID);
+                    uint[] parsedgear = Array.ConvertAll(gear, g => uint.TryParse(g, out var x) ? x : 0);
+                    List<uint> inventory1 = new List<uint>();
+
+                    Player newPlayer = new Player(parsed_id, parameter[1], parsed_race, parsed_level, parsed_exp, parsed_guildID, parsedgear, inventory1);
+
+                    players.Add(parsed_id, newPlayer);
+                }
+            }
+            return players;
+        }
 
         public void Equipgear(uint newGearID)
         {
@@ -200,8 +248,7 @@ namespace JennyCasey_Assign1
             bool BothTrinket = false;
             bool OneTrinket = false;
             bool AlternateSlot = false;
-            
-            
+                        
             //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
             {
@@ -210,7 +257,6 @@ namespace JennyCasey_Assign1
                     //thow exception saying the gear is already equipped
                     throw new Exception("Player has this gear equipped");
                 }
-
             }
 
             //if both ring slot are empty 
@@ -429,15 +475,10 @@ namespace JennyCasey_Assign1
             }
         }
 
-        //goes through the guild.txt file, splits the records, stores them in variables
-        //then stores those in a dictionary so we can search the dictionary via key when we want
-        //information about the guilds
-        public string FindGuildName(uint ID)
+        public Dictionary<uint,string> BuildGuildTable()
         {
             string guildRecord;
-            string name;
             uint uintGuildId;
-
             var guilds = new Dictionary<uint, string>();
 
             using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
@@ -455,8 +496,16 @@ namespace JennyCasey_Assign1
                     guilds.Add(uintGuildId, guildName);
                 }
             }
-
-            foreach (var keyValue in guilds)
+            return guilds;
+        }
+        //goes through the guild.txt file, splits the records, stores them in variables
+        //then stores those in a dictionary so we can search the dictionary via key when we want
+        //information about the guilds
+        public string FindGuildName(uint ID)
+        {
+            string name;
+            var guildDictionary = BuildGuildTable();
+            foreach (var keyValue in guildDictionary)
             {
                 if (keyValue.Key == guildId)
                 {
@@ -549,6 +598,204 @@ namespace JennyCasey_Assign1
                 default:
                     Console.WriteLine("Index out of range");
                     break;
+            }
+        }
+        public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
+        {
+            foreach (var player in dictionary)
+            {
+                Console.WriteLine("{0}", player.Value);
+            }
+        }
+
+        public void PrintGearListForPlayer(Dictionary<uint, Player> dictionary1, Dictionary<uint, Item> dictionary2)
+        {
+            Console.Write("Enter the player name: ");
+            string playerName1 = Console.ReadLine();
+            //search for the player in the players dictionary
+            //if we find it, then print out the player info
+
+            foreach (var name in dictionary1)
+            {
+                if (name.Value.Name == playerName1)
+                {
+                    //printing out the full value/info of player
+                    Console.WriteLine("{0}", name.Value);
+                    for (int i = 0; i < name.Value.Length; i++)
+                    {
+                        //if the value is zero, then it's empty and we will print that
+                        if (name.Value[i] == 0)
+                        {
+                            name.Value.EmptyGear(i);
+                        }
+                        //else it is not empty and let's print the item info
+                        else
+                        {
+                            foreach (var itemID in dictionary2)
+                            {
+                                if (itemID.Key == name.Value[i])
+                                {
+                                    Console.WriteLine(itemID.Value);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void PlayerLeaveGuild (Dictionary<uint, Player> dictionary)
+        {
+            Console.Write("Enter the player name: ");
+            string playerName2 = Console.ReadLine();
+            bool playerFound = false;
+
+            //search through the players dictionary for the username entered
+            foreach (var player in dictionary)
+            {
+                //once we find it, set the flag, then set the guild to 0 since we want to leave
+                if (player.Value.Name == playerName2)
+                {
+                    playerFound = true;
+                    dictionary[player.Key].GuildID = 0;
+                    Console.WriteLine("{0} has left guild!", playerName2);
+
+                }
+            }
+            if (playerFound == false)
+            {
+                Console.WriteLine("Player not found");
+            }
+        }
+        public void PlayerJoinGuild(Dictionary<uint, Player> dictionary)
+        {
+            Console.Write("Enter the player name: ");
+            string playerName3 = Console.ReadLine();
+            Console.Write("Enter the guild they will join: ");
+            string guildToJoin = Console.ReadLine();
+
+            //search for the name that the user entered in the players dictionary
+            foreach (var player in dictionary)
+            {
+                if (player.Value.Name == playerName3)
+                {
+                    //if we found it then call the FindGuildId method to find out the ID of
+                    //the guild name entered
+                    uint newGuildId = dictionary[player.Key].FindGuildId(guildToJoin);
+
+                    //set the guild to the guild ID and print out that player joined
+                    dictionary[player.Key].GuildID = newGuildId;
+                    Console.WriteLine("{0} has joined {1}!", playerName3, guildToJoin);
+                }
+            }
+        }
+        public void PlayerEquipGear(Dictionary<uint, Player> dictionary1, Dictionary<uint, Item> dictionary2)
+        {
+            Console.Write("Enter the player name: ");
+            string playerName0 = Console.ReadLine();
+            Console.Write("Enter the item name they will equip: ");
+            string itemname = Console.ReadLine();
+
+            foreach (var player in dictionary1)
+            {
+                if (player.Value.Name == playerName0) //if the player name matches on in the dictonary 
+                {
+                    foreach (var item in dictionary2)
+                    {
+                        if (itemname == item.Value.Name) //if the item matches one in the dictonary
+                        {
+                            //check to see if the players level makes them eligable to equip the item
+                            if (player.Value.Level < item.Value.Requirement)
+                                throw new Exception("Player doesn't meet Requirement");
+                            else
+                            {
+                                dictionary1[player.Key].Equipgear(item.Key);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void PlayerUnequipGear(Dictionary<uint, Player> dictionary)
+        {
+            int itemIndex;
+            Console.Write("Enter the player name: ");
+            string playerName = Console.ReadLine();
+            Console.Write("Enter the item slot number they will unequip: ");
+            Console.WriteLine("\n\t 0 = Helmet");
+            Console.WriteLine("\t 1 = Neck");
+            Console.WriteLine("\t 2 = Shoulders");
+            Console.WriteLine("\t 3 = Back");
+            Console.WriteLine("\t 4 = Chest");
+            Console.WriteLine("\t 5 = Wrist");
+            Console.WriteLine("\t 6 = Gloves");
+            Console.WriteLine("\t 7 = Belt");
+            Console.WriteLine("\t 8 = Pants");
+            Console.WriteLine("\t 9 = Boots");
+            Console.WriteLine("\t 10 = Ring");
+            Console.WriteLine("\t 11 = Trinket");
+            string itemChoice = Console.ReadLine();
+            int.TryParse(itemChoice, out itemIndex);
+
+            foreach (var player in dictionary)
+            {
+                if (playerName == player.Value.Name)
+                {
+                    dictionary[player.Key].UnequipGear(itemIndex);
+                }
+            }
+        }
+        public void AwardExperience(Dictionary<uint, Player> dictionary)
+        {
+            //get the player name then do a lookup in the dictionary for that player
+            Console.Write("Enter the player name: ");
+            string playerName4 = Console.ReadLine();
+
+            //get the experience to award then add that to the exp the player already has
+            Console.Write("Enter the amount of experience to award: ");
+            string experience = Console.ReadLine();
+            uint uintExperience;
+            uint.TryParse(experience, out uintExperience);
+
+            //goes through the players dictionart
+            foreach (var player in dictionary)
+            {
+                //if the name the user entered is a value in the dictionary, then we want to add experience
+                //but only if the level is less than 60 (since that is MAX_LEVEL)
+                if (player.Value.Name == playerName4)
+                {
+                    dictionary[player.Key].Exp = uintExperience;
+
+                    //if enough experience was entered, we may need to level up
+                    if ((uintExperience > 1000) && (dictionary[player.Key].Level < 60))
+                    {
+                        Console.WriteLine("Ding!" + "\n" + "Ding!" + "\n" + "Ding!");
+                        dictionary[player.Key].LevelUp(uintExperience);
+                    }
+                }
+            }
+        }
+        public int CompareTo(Player alpha)
+        {
+            if (alpha == null)
+                throw new ArgumentNullException();
+            else
+                return this.Name.CompareTo(alpha);
+        }
+
+        public void SortPlayerNames(Dictionary<uint, Player> dictionary)
+        {
+            //player sorted set
+            SortedSet<string> PlayerSortedSet = new SortedSet<string>();
+
+            foreach (var i in dictionary)
+            {
+                PlayerSortedSet.Add(i.Value.Name);
+            }
+
+            foreach (var i in PlayerSortedSet)
+            {
+                Console.WriteLine(i);
             }
         }
         public override string ToString()
