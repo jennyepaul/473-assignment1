@@ -629,11 +629,12 @@ namespace JennyCasey_Assign1
                     break;
             }
         }
+        //NEED TO FIX THIS AND GET IT IN ORDER! 
         public void PrintAllPlayers(Dictionary<uint, Player> dictionary)
         {
-            foreach (var player in dictionary.OrderBy(player => player.Value.Name))
+            foreach (var player in dictionary)
             {
-                Console.WriteLine(player);
+                Console.WriteLine(player.Value);
             }    
         }
 
