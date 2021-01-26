@@ -30,6 +30,9 @@ namespace JennyCasey_Assign1
         private uint guildId;
         private uint[] gear;
         private List<uint> inventory;
+
+        //bool AlternateSlot = false;
+
         // default constructor 
         public Player()
         {
@@ -190,6 +193,11 @@ namespace JennyCasey_Assign1
             }
         }
 
+        public bool Switch(bool value)
+        {
+            return !value;
+        }
+
         public void Equipgear(uint newGearID)
         {
             //determine if this is a valid piece of gear at all
@@ -200,8 +208,9 @@ namespace JennyCasey_Assign1
             bool BothTrinket = false;
             bool OneTrinket = false;
             bool AlternateSlot = false;
-            
-            
+           // Alternate AlternateSlot;
+
+
             //check to see if the player already has the gear equipped 
             for (int i = 0; i <= 13; i++)
             {
@@ -293,12 +302,11 @@ namespace JennyCasey_Assign1
                         gearlist.RemoveAt(12);
                     }    
                     else //if both slots are not empty 
-                    {
-                        AlternateSlot = !AlternateSlot; //alternate the slot each time 
+                    {                    
                         if (AlternateSlot == false)
                         {
                             gearlist.Insert(10, newGearID);
-                            gearlist.RemoveAt(11);
+                            gearlist.RemoveAt(11); 
                         }
                         else
                         {
@@ -324,8 +332,7 @@ namespace JennyCasey_Assign1
                         gearlist.RemoveAt(14);
                     }
                     else //if both slots are empty
-                    {
-                        AlternateSlot = !AlternateSlot; //alternate the slots each time
+                    {                    
                         if (AlternateSlot == false)
                         {
                             gearlist.Insert(12, newGearID);
