@@ -864,7 +864,15 @@ namespace JennyCasey_Assign1
             }
             foreach (var i in PlayerSortedSet)
             {
-                Console.WriteLine(i);
+                 Console.WriteLine(i);
+
+                //adding hello just to see what happens 
+                //intresting results in the issue happening on third line instead of the second
+                //Console.WriteLine("Hello {0}", i);
+
+                //tried to add formatting into the writeline but realized that i is for each line 
+                //not each seperate name, race, etc. 
+                //Console.WriteLine("{0,-10}", i);
             }
         }
         public override string ToString()
