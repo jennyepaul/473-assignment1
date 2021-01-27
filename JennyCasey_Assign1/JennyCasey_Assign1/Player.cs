@@ -865,14 +865,6 @@ namespace JennyCasey_Assign1
             foreach (var i in PlayerSortedSet)
             {
                  Console.WriteLine(i);
-
-                //adding hello just to see what happens 
-                //intresting results in the issue happening on third line instead of the second
-                //Console.WriteLine("Hello {0}", i);
-
-                //tried to add formatting into the writeline but realized that i is for each line 
-                //not each seperate name, race, etc. 
-                //Console.WriteLine("{0,-10}", i);
             }
         }
         public override string ToString()
@@ -881,24 +873,15 @@ namespace JennyCasey_Assign1
             if(this.guildId > 0)
             {
                 //find the guild name based on the ID
-                string name = FindGuildName(this.guildId);
+                string guildName = FindGuildName(this.guildId);
+
                 //return the printed string
-                return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + name);
+                return ("Name: " + this.name.PadRight(10) + "\tRace: " + this.Race + "\tLevel: " + this.Level + "\tGuild: " + guildName);
             }
             //else they are not part of a guild, so do not print the guild name
             else
             {
-                //the original 
-                return ("Name: " + this.name + "\tRace: " + this.Race + "\tLevel: " + this.Level);
-
-                //seen examples where you add the "PadRight(25)" to make them align 
-                //return String.Format("Name: {0} Race: {1} Level: {2}", this.name.PadRight(50), this.Race, this.Level);
-
-                //adding the formating into the {} 
-                //return String.Format("Name: {0,-20} {3,-20} {1,5} Level: {2}", this.name, this.Race, this.Level, "Race");
-
-                //just to see if it will format with just random words printing out 
-                //return String.Format("Name: {0,-20} {3,-20} {1,5} Level: {2}", "Zero", "One", "Two", "Three");
+                return ("Name: " + this.name.PadRight(10) + "\tRace: " + this.Race + "\tLevel: " + this.Level);
             }
         }
     }

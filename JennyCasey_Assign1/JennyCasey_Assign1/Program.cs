@@ -61,7 +61,7 @@ namespace JennyCasey_Assign1
             while(isContinuing)
             {
                 //beginning message and menu options
-                Console.WriteLine("Welcome to World of ConflictCraft: Testing Environment. Please select an option from the list below:");
+                Console.WriteLine("\nWelcome to World of ConflictCraft: Testing Environment. Please select an option from the list below:");
                 Console.WriteLine(String.Format(formatMenuString, choiceOne, choiceTwo, choiceThree, choiceFour,
                                                                 choiceFive, choiceSix, choiceSeven, choiceEight,
                                                                 choiceNine, quit));
