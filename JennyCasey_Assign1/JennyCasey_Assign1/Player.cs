@@ -22,7 +22,7 @@ namespace JennyCasey_Assign1
      * level, experiance, guild ID, gear, and the inventory. 
      * - The player class has an IComparable interface in order to sort the player based on their names.
      * - Player Class Methods: 
-     *             BuildPlayerTable => This method reads from the players.txt file and creates a player
+     *             BuildPlayerDictionary => This method reads from the players.txt file and creates a player
      *                                 dictionary. 
      *             EquipGear => This method corresponds with option '7', and places the item the player wants
      *                              to equip into the players gear list.
@@ -104,66 +104,50 @@ namespace JennyCasey_Assign1
         //only a getter, since only readonly
         public uint ID
         {
-            get
-            {
-                return id;
-            }
+            get { return id; }
+            set { }
         }
 
         //only a getter, since only readonly
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get { return name; }
         }
 
         //only a getter, since only readonly
         public Race Race
         {
-            get
-            {
-                return race;
-            }
+            get { return race; }
+            set { }
         }
 
         public uint Level
         {
             //free read/write acess so getter and setters
-            get
-            {
-                return level;
-            }
-            set
-            {
-                level = value;
-            }
+            get { return level;}
+            set { level = value; }
         }
 
         public uint Exp
         {
             //free read/write acess so getter and setters
             get
-            {
-                return exp;
-            }
+            { return exp; }
             set
             {
-                //nextLevel would be the current Level * 100
+                //nextLevel would be the current Level * 100)
                 //set newLevel to Level since we don't want to alter the Level variable
                 uint nextLevel = (Level * 1000);
                 uint newLevel = Level;
 
-                //if the experience is greater than the value of current level * 1000, we would level up
-                //so calculate what the ~possible~ level of the player would be
+                //if the experience is greater than the value of what the nextLevel would be, we would level up
+                //so calculate what the ~possible~ newLevel of the player would be
                 if (exp >= nextLevel)
                 {
                     exp /= nextLevel;
                     newLevel += exp;
 
                 }
-
                 //if the current level OR the new level after experience is less than MAX_LEVEL
                 //we can add the experience
                 if ((Level < MAX_LEVEL) || (newLevel < MAX_LEVEL))
@@ -174,6 +158,7 @@ namespace JennyCasey_Assign1
                 else
                 {
                     //if its >= MAX_LEVEL then we just return
+                    Console.WriteLine("Player already at max level");
                     exp += 0;
                     return;
                 }
@@ -183,14 +168,8 @@ namespace JennyCasey_Assign1
         public uint GuildID
         {
             //free read/write acess so getter and setters
-            get
-            {
-                return guildId;
-            }
-            set
-            {
-                guildId = value;
-            }
+            get { return guildId;}
+            set { guildId = value; }
         }
 
         public int Length => gear.Length;
@@ -208,36 +187,20 @@ namespace JennyCasey_Assign1
                 }
                 else 
                 {
-                    throw new Exception();
+                    throw new Exception("Out of range");
 }
                 }
-            set
-            {
-                gear[index] = value;
-            }
-            
-            
+            set { gear[index] = value; }           
         }
 
         public List<uint> Inventory
         {
             //free read/write acess so getter and setters
-            get
-            {
-                return inventory;
-            }
-            set
-            {
-                inventory = value;
-            }
+            get { return inventory; }
+            set { inventory = value;}
         }
-        /*
-         * The following function will build the Player table by reading in the input file
-         * then splitting each record up to assign each value to the correct player attribute
-         * after it will parse the values from string to the correct values and 
-         * pass them into the parameterized constructor
-         */
-        public Dictionary<uint, Player> BuildPlayerTable()
+  
+        public Dictionary<uint, Player> BuildPlayerDictionary()
         {
             string playerRecord;
             var players = new Dictionary<uint, Player>();
@@ -367,7 +330,10 @@ namespace JennyCasey_Assign1
                     gearlist.Insert(9, newGearID);
                     gearlist.RemoveAt(10);
                     break;
-                case 1347: case 1348: //Ring Slots
+                //the following are ring slots, testing to see if both slots are empty
+                //if so then we will equip in lower slot #, if one is empty, then we equip in that empty
+                //slot, else both occupied so we have alternate equipping in low slot then high
+                case 1347: case 1348:
                     if (isBothRingsEmpty == true)
                     {
                         gearlist.Insert(10, newGearID);
@@ -411,7 +377,10 @@ namespace JennyCasey_Assign1
 
                     }
                     break;
-                case 1739: case 1349: case 1350: //Trinket Slots
+                //the following are trinket slots, testing to see if both slots are empty
+                //if so then we will equip in lower slot #, if one is empty, then we equip in that empty
+                //slot, else both occupied so we have alternate equipping in low slot then high
+                case 1739: case 1349: case 1350: 
                     if (isBothTrinketsEmpty == true)
                     {
                         gearlist.Insert(12, newGearID);
@@ -431,13 +400,10 @@ namespace JennyCasey_Assign1
                     else 
                     {                    
                         if (isTrinketLowerSlotNext == true)
-                        {                           
+                        {
+                            //insert it into the lower slot, then add that piece of gear to inventory
                             gearlist.Insert(12, newGearID);
-                            Console.WriteLine("Adding {0} to inventory", gearlist[13]);
-
                             inventory.Add(gearlist[13]);
-                            Console.WriteLine("Removing {0} from gear list", gearlist[13]);
-
                             gearlist.RemoveAt(13);
 
                             //set lower slot to false to equip higher slot next
@@ -445,10 +411,9 @@ namespace JennyCasey_Assign1
                         }
                         else if(!isTrinketLowerSlotNext)
                         {
+                            //insert it into the higher slot, then add that piece of gear to inventory
                             gearlist.Insert(13, newGearID);
-                            Console.WriteLine("Adding {0} to inventory",gearlist[14]);
                             inventory.Add(gearlist[14]);
-                            Console.WriteLine("Removing {0} from gear list", gearlist[14]);
                             gearlist.RemoveAt(14);
 
                             //set lower slot next to true so we equip in low slot next
@@ -486,7 +451,7 @@ namespace JennyCasey_Assign1
                     gearSlot = 11;
                 }
             }
-            //if the gearSlot is 11, the indexes for rings are either 11 or 12
+            //if the gearSlot is 11, the indexes for trinkets are either 12 or 13
             else if (gearSlot == 11)
             {
                 if (gear[12] != 0)
@@ -546,7 +511,7 @@ namespace JennyCasey_Assign1
             }
         }
 
-        public Dictionary<uint,string> BuildGuildTable()
+        public Dictionary<uint,string> BuildGuildDictionary()
         {
             string guildRecord;
             uint uintGuildId;
@@ -569,13 +534,12 @@ namespace JennyCasey_Assign1
             }
             return guilds;
         }
-        //goes through the guild.txt file, splits the records, stores them in variables
-        //then stores those in a dictionary so we can search the dictionary via key when we want
-        //information about the guilds
+     
         public string FindGuildName(uint ID)
         {
             string name;
-            var guildDictionary = BuildGuildTable();
+            var guildDictionary = BuildGuildDictionary();
+            //search the guild dictionary for the key and return the name
             foreach (var keyValue in guildDictionary)
             {
                 if (keyValue.Key == guildId)
@@ -584,35 +548,17 @@ namespace JennyCasey_Assign1
                     return name;
                 }
             }
-            return "Not found";
+            return "Guild Not found";
         }
         public uint FindGuildId(string guildNameToFind)
         {
-            string guildRecord;
-            uint uintGuildId;
-
-            var guilds = new Dictionary<uint, string>();
-
-            using (StreamReader inFile = new StreamReader("../../../guilds.txt"))
-            {
-                while ((guildRecord = inFile.ReadLine()) != null)
-                {
-                    string[] guildInfo = guildRecord.Split('\t');
-                    string guildId = guildInfo[0];
-                    string guildName = guildInfo[1];
-
-                    //parse the guild ID to an unsigned integer
-                    uint.TryParse(guildId, out uintGuildId);
-
-                    //add the guilds to a dictionary so we can access them 
-                    guilds.Add(uintGuildId, guildName);
-                }
-            }
-
-            foreach (var keyValue in guilds)
+            bool foundGuildId = false;
+            var guildDictionary = BuildGuildDictionary();
+            foreach (var keyValue in guildDictionary)
             {
                 if (keyValue.Value == guildNameToFind)
                 {
+                    foundGuildId = true;
                     return keyValue.Key;
                 }
             }
@@ -676,6 +622,7 @@ namespace JennyCasey_Assign1
         {
             Console.Write("Enter the player name: ");
             string playerName1 = Console.ReadLine();
+            bool playerIsFound = false;
             //search for the player in the players dictionary
             //if we find it, then print out the player info
 
@@ -683,8 +630,9 @@ namespace JennyCasey_Assign1
             {
                 if (name.Value.Name == playerName1)
                 {
+                    playerIsFound = true;
                     //printing out the full value/info of player
-                    Console.WriteLine("{0}", name.Value);
+                    Console.WriteLine("\n{0}", name.Value);
                     for (int i = 0; i < name.Value.Length; i++)
                     {
                         //if the value is zero, then it's empty and we will print that
@@ -706,12 +654,16 @@ namespace JennyCasey_Assign1
                     }
                 }
             }
+            if (playerIsFound == false)
+            {
+                Console.WriteLine("Unknown player");
+            }
         }
         public void PlayerLeaveGuild (Dictionary<uint, Player> dictionary)
         {
             Console.Write("Enter the player name: ");
             string playerName2 = Console.ReadLine();
-            bool playerFound = false;
+            bool playerIsFound = false;
 
             //search through the players dictionary for the username entered
             foreach (var player in dictionary)
@@ -719,19 +671,20 @@ namespace JennyCasey_Assign1
                 //once we find it, set the flag, then set the guild to 0 since we want to leave
                 if (player.Value.Name == playerName2)
                 {
-                    playerFound = true;
+                    playerIsFound = true;
                     dictionary[player.Key].GuildID = 0;
-                    Console.WriteLine("{0} has left guild!", playerName2);
+                    Console.WriteLine("{0} has left their Guild", playerName2);
 
                 }
             }
-            if (playerFound == false)
+            if (playerIsFound == false)
             {
                 Console.WriteLine("Player not found");
             }
         }
         public void PlayerJoinGuild(Dictionary<uint, Player> dictionary)
         {
+            bool playerIsFound = false;
             Console.Write("Enter the player name: ");
             string playerName3 = Console.ReadLine();
             Console.Write("Enter the guild they will join: ");
@@ -742,6 +695,7 @@ namespace JennyCasey_Assign1
             {
                 if (player.Value.Name == playerName3)
                 {
+                    playerIsFound = true;
                     //if we found it then call the FindGuildId method to find out the ID of
                     //the guild name entered
                     uint newGuildId = dictionary[player.Key].FindGuildId(guildToJoin);
@@ -751,9 +705,14 @@ namespace JennyCasey_Assign1
                     Console.WriteLine("{0} has joined {1}!", playerName3, guildToJoin);
                 }
             }
+            if (playerIsFound == false)
+            {
+                Console.WriteLine("Unknown player");
+            }
         }
         public void PlayerEquipGear(Dictionary<uint, Player> dictionary1, Dictionary<uint, Item> dictionary2)
         {
+            bool playerIsFound = false;
             Console.Write("Enter the player name: ");
             string playerName0 = Console.ReadLine();
             Console.Write("Enter the item name they will equip: ");
@@ -763,6 +722,7 @@ namespace JennyCasey_Assign1
             {
                 if (player.Value.Name == playerName0) //if the player name matches on in the dictonary 
                 {
+                    playerIsFound = true;
                     foreach (var item in dictionary2)
                     {
                         if (itemname == item.Value.Name) //if the item matches one in the dictonary
@@ -778,10 +738,15 @@ namespace JennyCasey_Assign1
                     }
                 }
             }
+            if(playerIsFound == false)
+            {
+                Console.WriteLine("Unknown player");
+            }
         }
 
         public void PlayerUnequipGear(Dictionary<uint, Player> dictionary)
         {
+            bool playerIsFound = false;
             int itemIndex;
             Console.Write("Enter the player name: ");
             string playerName = Console.ReadLine();
@@ -801,16 +766,23 @@ namespace JennyCasey_Assign1
             string itemChoice = Console.ReadLine();
             int.TryParse(itemChoice, out itemIndex);
 
+            //look for the player in the dictionary, if valid then call the "unequip" gear method
             foreach (var player in dictionary)
             {
                 if (playerName == player.Value.Name)
                 {
+                    playerIsFound = true;
                     dictionary[player.Key].UnequipGear(itemIndex);
                 }
+            }
+            if (playerIsFound == false)
+            {
+                Console.WriteLine("Unknown player");
             }
         }
         public void AwardExperience(Dictionary<uint, Player> dictionary)
         {
+            bool playerIsFound = false;
             //get the player name then do a lookup in the dictionary for that player
             Console.Write("Enter the player name: ");
             string playerName4 = Console.ReadLine();
@@ -828,6 +800,7 @@ namespace JennyCasey_Assign1
                 //but only if the level is less than 60 (since that is MAX_LEVEL)
                 if (player.Value.Name == playerName4)
                 {
+                    playerIsFound = true;
                     dictionary[player.Key].Exp = uintExperience;
 
                     //if enough experience was entered, we may need to level up
@@ -837,6 +810,10 @@ namespace JennyCasey_Assign1
                         dictionary[player.Key].LevelUp(uintExperience);
                     }
                 }
+            }
+            if (playerIsFound == false)
+            {
+                Console.WriteLine("Unknown player");
             }
         }
         public int CompareTo(Object alpha)
@@ -858,10 +835,14 @@ namespace JennyCasey_Assign1
         {
             //player sorted set
             SortedSet<Player>PlayerSortedSet = new SortedSet<Player>();
+
+            //add the players to the sorted set
             foreach (var i in dictionary)
             {
                 PlayerSortedSet.Add(i.Value);
             }
+
+            //print the sorted set out
             foreach (var i in PlayerSortedSet)
             {
                  Console.WriteLine(i);

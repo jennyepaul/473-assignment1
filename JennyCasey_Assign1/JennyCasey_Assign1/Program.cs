@@ -49,9 +49,9 @@ namespace JennyCasey_Assign1
             Item item1 = new Item();
 
             //build the 3 tables
-            var guildTable = player1.BuildGuildTable();
+            var guildTable = player1.BuildGuildDictionary();
             var items = item1.BuildItemDictionary();
-            var players = player1.BuildPlayerTable();
+            var players = player1.BuildPlayerDictionary();
 
             //print out the menu and the options to the user
             Console.WriteLine("Welcome to the World of ConflictCraft: Testing Environment!");
