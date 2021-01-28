@@ -552,13 +552,11 @@ namespace JennyCasey_Assign1
         }
         public uint FindGuildId(string guildNameToFind)
         {
-            bool foundGuildId = false;
             var guildDictionary = BuildGuildDictionary();
             foreach (var keyValue in guildDictionary)
             {
                 if (keyValue.Value == guildNameToFind)
                 {
-                    foundGuildId = true;
                     return keyValue.Key;
                 }
             }
@@ -733,6 +731,7 @@ namespace JennyCasey_Assign1
                             else
                             {
                                 dictionary1[player.Key].Equipgear(item.Key);
+                                Console.WriteLine("Player successfully equipped gear");
                             }
                         }
                     }
